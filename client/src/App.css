@@ -1,3 +1,14 @@
 .MainJumbo {
     text-align: center;
+    background-color: #EEEEFF;
+}
+
+.CarSearcher {
+    margin: auto;
+    width: 50vw;
+}
+
+.display-3 {
+    font-weight: normal;
+    font-size: 7vw;
 }

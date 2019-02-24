@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import './nav.css';
 import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
     NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
@@ -21,7 +22,7 @@ class NavBar extends Component {
 
     render() {
         return (
-            <Navbar color="light" light expand="md">
+            <Navbar className="" light expand="md">
                 <NavbarBrand href="/">CarBay</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
