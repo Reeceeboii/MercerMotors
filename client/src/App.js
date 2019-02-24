@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+
 import './App.css';
-import Customers from './components/customers';
+import Navbar from './components/nav/nav.js';
+
+import { Jumbotron, Container } from 'reactstrap';
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">React Express Starter</h1>
-        </header>
-        <Customers />
-      </div>
-    );
-  }
+    render() {
+        return (
+            <div className="App">
+                <Navbar/>
+
+                <div>
+                    <Jumbotron fluid className="MainJumbo">
+                        <Container fluid>
+                            <h1 className="display-3">Welcome to CarBay</h1>
+                            <p className="lead">
+                                The <b>number 1</b> site for second hand cars
+                            </p>
+                        </Container>
+                    </Jumbotron>
+                </div>
+            </div>
+        );
+    }
 }
 
 export default App;
