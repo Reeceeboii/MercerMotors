@@ -22,7 +22,7 @@ class NavBar extends Component {
 
     render() {
         return (
-            <Navbar className="" light expand="md">
+            <Navbar className="NavBar" light expand="md">
                 <NavbarBrand href="/">CarBay</NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>

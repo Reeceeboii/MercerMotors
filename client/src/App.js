@@ -3,6 +3,8 @@ import React, { Component } from 'react';
 import './App.css';
 import Navbar from './components/nav/nav.js';
 
+import Cars from './components/cars/cars';
+
 import { Jumbotron, Container, InputGroup, Input, InputGroupAddon, Button } from 'reactstrap';
 
 class App extends Component {
@@ -24,7 +26,7 @@ class App extends Component {
 
     // on submit just output the result for clarity; obviously remove this
     handleSubmit(event) {
-        alert('A query was submitted: ' + this.state.search);
+        alert(`Query: ${this.state.search}`);
     }
 
 
@@ -43,13 +45,14 @@ class App extends Component {
                                 <InputGroup>
                                     <Input value={this.state.search} onChange={this.handleChange}/>
                                     <InputGroupAddon addonType="append">
-                                        <Button color="primary" type="submit" value="Submit">Search</Button>
+                                        <Button color="primary" type="submit" value="Submit">Search!</Button>
                                     </InputGroupAddon>
                                 </InputGroup>
                             </form>
                         </div>
                     </Jumbotron>
                 </div>
+                <Cars />
             </div>
         );
     }

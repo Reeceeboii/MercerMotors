@@ -13,7 +13,7 @@ app.get('/api/cars', (req, res) => {
             res.json(result);
         })
     });
-});
+})
 
 const port = 5000;
 

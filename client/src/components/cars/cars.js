@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import './cars.css';
+import placeholder from '../../assets/500x500-placeholder.jpg';
 
 import { Button } from 'reactstrap';
 
@@ -19,12 +20,19 @@ class Cars extends Component {
 
     render() {
         return (
-            <div>
-                <h2>Cars received from database</h2>
-                <Button color="danger">Danger!</Button>
-                <ul>
+            <div className="CarComponent">
+                <h2>Cars</h2>
+                <ul className="CarResults">
                     {this.state.cars.map(car =>
-                        <li key={car._id}>{car.make} {car.model}</li>
+                        <div className="CarList" key={car._id}>
+                            <img className="CarImage" src={placeholder} alt=""/>
+                            <li style={{backgroundColor: "#cccccc", fontWeight: "bold"}}>{car.make} {car.model}</li>
+                            <li>£{car.price.$numberDecimal}</li>
+                            <li>{car.year.substring(0, 4)}</li>
+                            <li>{car.type}</li>
+                            <li>{car.gearbox_type}</li>
+
+                        </div>
                     )}
                 </ul>
             </div>

@@ -1,12 +1,27 @@
-ul {
-  padding:0;
-  list-style:none;
-  width: 30%;
-  margin:auto;
+.CarComponent {
+  background-color: #eeeeee;
+}
+h2 {
+  text-align: center;
 }
 
-li{
-  font-size:1.2rem;
-  line-height: 2rem;
-  border-bottom: 1px dotted #777;
+.CarResults {
+  list-style: none;
+  width: 70%;
+  margin: auto;
+}
+
+.CarList {
+  overflow: hidden;
+  margin-bottom: 50px;
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: #dddddd;
+  border-style: solid;
+}
+
+.CarImage {
+  float: left;
+  height: 250px;
+  width: 250px;
 }
