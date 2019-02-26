@@ -1,20 +1,11 @@
-const express = require('express');
-const MongoClient = require('mongodb').MongoClient;
+const http = require('http');
+const middleware = require('./middlewareRouter');
 
-const databaseURL = "mongodb://localhost:27017";
-const app = express();
+// hardcoded port for dev purposes; this would be an injected environment variable
+// when the app is being hosted
+const port = process.env.PORT || 5000;
 
-app.get('/api/cars', (req, res) => {
-    MongoClient.connect(databaseURL, function (err, db) {
-        if (err) throw err;
-        let dbo = db.db('bs-dw');
-        dbo.collection("cars").find({}).toArray(function (err, result) {
-            if (err) throw err;
-            res.json(result);
-        })
-    });
-})
+// bind middleware to http server as a request handler
+const server = http.createServer(middleware);
 
-const port = 5000;
-
-app.listen(port, () => `Server running on port ${port}`);
+server.listen(port, () => console.log(`Server up @localhost:${port}`));

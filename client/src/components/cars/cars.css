@@ -1,27 +1,22 @@
-.CarComponent {
-  background-color: #eeeeee;
-}
-h2 {
-  text-align: center;
-}
-
 .CarResults {
   list-style: none;
-  width: 70%;
+  width: 50%;
   margin: auto;
 }
 
-.CarList {
-  overflow: hidden;
-  margin-bottom: 50px;
-  font-size: 1.2rem;
+.CardHeader {
   text-align: center;
-  background-color: #dddddd;
-  border-style: solid;
+  font-weight: bold;
+  font-size: 2rem;
 }
 
-.CarImage {
+.CarList {
+  margin: auto;
+  width: 75%;
+}
+
+.CarCardImage {
+  width: 50%;
+  height: 50%;
   float: left;
-  height: 250px;
-  width: 250px;
 }
