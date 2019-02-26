@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import './cars.css';
 
-import { Col, Card, CardImg, CardText, CardBody, CardLink,
-    CardTitle, ListGroup, ListGroupItem, CardHeader, CardFooter,
-    Button} from 'reactstrap';
+import { Card, CardImg, CardText, CardBody, CardLink, Button,
+    CardTitle, ListGroup, ListGroupItem, CardHeader, CardFooter} from 'reactstrap';
 
 class Cars extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            cars: []
+            cars: [],
+            cSelected: []
         };
     }
+
 
     componentDidMount() {
         fetch('/cars')
@@ -19,23 +20,24 @@ class Cars extends Component {
             .then(cars => this.setState({cars}, () => console.log('Cars fetched...', cars)));
     }
 
-    search() {
-
-    }
 
     render() {
         return (
             <ListGroup className="CarList">
                 {this.state.cars.map(car =>
-                    <ListGroupItem>
-                        <Card>
-                            <CardHeader tag="h3">{car.make} {car.model}</CardHeader>
+                    <ListGroupItem key={car._id}>
+                        <Card style={{textAlign: "center"}} body outline color="primary">
+                            <CardHeader tag="h2">
+                                {car.make} {car.model}
+                            </CardHeader>
                             <CardBody>
                                 <CardTitle style={{fontWeight: "bold"}}>£{car.price}</CardTitle>
                                 <CardText>{car.release_date.substring(0, 4)} | {car.type} | {car.gearbox}</CardText>
-                                <Button>View</Button>
                             </CardBody>
-                            <CardFooter className="text-muted">Uploaded by {car.owner_id}</CardFooter>
+                            <CardFooter className="text-muted">
+                                Uploaded by {car.owner_id}
+                            </CardFooter>
+                            <Button color="info" size="lg" block>View</Button>
                         </Card>
                     </ListGroupItem>
                 )}

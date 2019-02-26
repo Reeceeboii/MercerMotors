@@ -7,8 +7,6 @@ const database = "mongodb://localhost:27017/bs-dw";
 mongoose.connect(database);
 
 
-
-
 router.get('/', (req, res, next) => {
    carSchema.find({})
        .exec()
