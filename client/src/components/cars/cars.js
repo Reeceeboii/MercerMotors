@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './cars.css';
 
 import { Col, Card, CardImg, CardText, CardBody, CardLink,
-    CardTitle, ListGroup, ListGroupItem } from 'reactstrap';
+    CardTitle, ListGroup, ListGroupItem, CardHeader, CardFooter,
+    Button} from 'reactstrap';
 
 class Cars extends Component {
     constructor(props) {
@@ -13,9 +14,13 @@ class Cars extends Component {
     }
 
     componentDidMount() {
-        fetch('/api/cars/')
+        fetch('/cars')
             .then(res => res.json())
             .then(cars => this.setState({cars}, () => console.log('Cars fetched...', cars)));
+    }
+
+    search() {
+
     }
 
     render() {
@@ -24,15 +29,13 @@ class Cars extends Component {
                 {this.state.cars.map(car =>
                     <ListGroupItem>
                         <Card>
-                            <CardBody className="CardHeader">
-                                <CardTitle>{car.make} {car.model}</CardTitle>
-                            </CardBody>
-                            <img className="CarCardImage" src="https://placeholdit.imgix.net/~text?txtsize=33&txt=318%C3%97180&w=318&h=180" alt="Card image cap" />
+                            <CardHeader tag="h3">{car.make} {car.model}</CardHeader>
                             <CardBody>
-                                <CardText><b>Information</b></CardText>
-                                <CardLink href="#">Card Link</CardLink>
-                                <CardLink href="#">Another Link</CardLink>
+                                <CardTitle style={{fontWeight: "bold"}}>£{car.price}</CardTitle>
+                                <CardText>{car.release_date.substring(0, 4)} | {car.type} | {car.gearbox}</CardText>
+                                <Button>View</Button>
                             </CardBody>
+                            <CardFooter className="text-muted">Uploaded by {car.owner_id}</CardFooter>
                         </Card>
                     </ListGroupItem>
                 )}

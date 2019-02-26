@@ -1,11 +1,16 @@
 const mongoose = require('mongoose');
-const bson=require("bson")
+const bson=require("bson");
 const Schema = mongoose.Schema;
 
 const carSchema = new Schema({
     _id: Schema.ObjectId, owner_id: mongoose.Schema.ObjectId, make: String,
-    model: String, year: Date, price: bson.Decimal128,
-    type: String, gearbox_type: String
+    model: String, release_date: Date, price: Number,
+    type: String, gearbox: String
 });
+
+carSchema.statics.findByMake = function(make, cb) {
+  return this.find({ make: make }, cb);
+};
+
 
 module.exports = mongoose.model('Car', carSchema);
