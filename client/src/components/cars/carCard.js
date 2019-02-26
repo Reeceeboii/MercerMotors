@@ -4,7 +4,7 @@ import './cars.css';
 import { Card, CardImg, CardText, CardBody, CardLink, Button,
     CardTitle, ListGroup, ListGroupItem, CardHeader, CardFooter} from 'reactstrap';
 
-class Cars extends Component {
+class CarCard extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -46,4 +46,4 @@ class Cars extends Component {
     }
 }
 
-export default Cars;
+export default CarCard;

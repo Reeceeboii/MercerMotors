@@ -28,7 +28,6 @@ class Home extends Component {
     render() {
         return (
             <div className="App">
-                <Navbar/>
                 <div>
                     <Jumbotron fluid className="MainJumbo">
                         <Container fluid>

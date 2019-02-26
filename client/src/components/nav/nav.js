@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import { Link } from 'react-router-dom';
 import './nav.css';
 import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
@@ -10,7 +11,9 @@ class NavBar extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            isOpen: false
+            isOpen: false,
+            //TODO link this name with OKTA
+            name: "Reece"
         };
     }
 
@@ -23,30 +26,34 @@ class NavBar extends Component {
     render() {
         return (
             <Navbar className="NavBar" light expand="md">
-                <NavbarBrand href="/">CarBay</NavbarBrand>
+                <NavbarBrand><Link to="/">CarBay</Link></NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink href="/">Home</NavLink>
+                            <NavLink>
+                                <Link to="/">Home</Link>
+                            </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink href="https://github.com/Reeceeboii/DynamicWebsiteV4">GitHub</NavLink>
+                            <NavLink>
+                                <Link to="/">GitHub</Link>
+                            </NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
-                                -Insert name here-
+                                {this.state.name}
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
-                                    My account
+                                    <Link to="/user">My account</Link>
                                 </DropdownItem>
                                 <DropdownItem>
-                                    My starred cars
+                                    <Link to="/">My stars</Link>
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>
-                                    Logout
+                                    <Link to="/">Log out</Link>
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
