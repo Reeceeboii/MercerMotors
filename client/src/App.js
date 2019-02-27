@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {BrowserRouter, Route} from "react-router-dom";
+import { BrowserRouter as Router, Route} from "react-router-dom";
 
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 
@@ -7,12 +7,14 @@ import Navbar from './components/nav/nav';
 import Home from './pages/home';
 import Cars from './pages/cars';
 import User from './pages/user';
+import Login from './components/auth/Login';
 
 import './App.css';
 
 // okta configuration information
 // this is linked to my CarBay application on Okta.com
 const OktaConfig = {
+    domain: 'https://dev-324612.okta.com',
     issuer: 'https://dev-324612.okta.com/oauth2/default',
     redirect_uri: window.location.origin + '/implicit/callback',
     client_id: '0oabhldxoT4HTCShn356'
@@ -27,32 +29,42 @@ function onAuthRequired({history}) {
 class App extends Component {
     render() {
         return (
-            <BrowserRouter>
-                <Security issuer={OktaConfig.issuer}
-                          client_id={OktaConfig.client_id}
-                          redirect_uri={OktaConfig.redirect_uri}
-                          onAuthRequired={onAuthRequired}
-                >
+            <Router>
                 <div>
-                    <Navbar/>
-                    <Route exact={true} path='/' render={() => (
-                        <div className="App">
-                            <Home />
-                        </div>
-                    )}/>
-                    <Route exact={true} path='/cars' render={() => (
-                        <div className="App">
-                            <Cars />
-                        </div>
-                    )}/>
-                    <Route exact={true} path='/user' render={() => (
-                        <div className="App">
-                            <User/>
-                        </div>
-                    )}/>
+                    <Security issuer={OktaConfig.issuer}
+                              client_id={OktaConfig.client_id}
+                              redirect_uri={OktaConfig.redirect_uri}
+                              onAuthRequired={onAuthRequired}>
+
+                        <Navbar/>
+
+                        <Route exact={true} path='/' render={() => (
+                            <div className='App'>
+                                <Home />
+                            </div>
+                        )}/>
+
+                        <Route exact={true} path='/cars' render={() => (
+                            <div className='App'>
+                                <Cars />
+                            </div>
+                        )}/>
+
+                        <SecureRoute exact={true} path='/user' render={() => (
+                            <div className='App'>
+                                <User/>
+                            </div>
+                        )}/>
+
+                        <Route path='/login' render={() =>(
+                            <Login baseUrl={OktaConfig.domain}/>
+                        )}/>
+
+                        <Route path='/implicit/callback' component={ImplicitCallback}/>
+
+                    </Security>
                 </div>
-                </Security>
-            </BrowserRouter>
+            </Router>
         );
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './cars.css';
 
-import { Card, CardImg, CardText, CardBody, CardLink, Button,
+import { Card, CardText, CardBody, Button,
     CardTitle, ListGroup, ListGroupItem, CardHeader, CardFooter} from 'reactstrap';
 
 class CarCard extends Component {

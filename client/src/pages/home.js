@@ -1,37 +1,77 @@
 import React, {Component} from 'react';
-import Navbar from "../components/nav/nav";
 import {Button, Container, Input, InputGroup, InputGroupAddon, Jumbotron} from "reactstrap";
 
-class Home extends Component {
+import { withAuth } from '@okta/okta-react';
+import { Link } from 'react-router-dom';
+
+export default withAuth (class Home extends Component {
     // state for storing the value currently in the search box and bindings for submission and change handling
     constructor(props) {
         super(props);
         this.state = {
+            authenticated: null,
             search: ""
         };
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-
+        this.checkAuthentication();
     }
+
+    checkAuthentication = async () => {
+        const authenticated = await this.props.auth.isAuthenticated();
+        if(authenticated !== this.state.authenticated) {
+            this.setState({authenticated});
+        }
+    };
+
+    async componentDidMount() {
+        this.checkAuthentication();
+    }
+
+    async componentDidUpdate() {
+        this.checkAuthentication();
+    }
+
+    login = async () => {
+        this.props.auth.login('/');
+    };
+
+    logout = async () => {
+        this.props.auth.logout('/');
+    };
+
 
     // changes to the search box are handled here
-    handleChange(event) {
+    handleChange = (event) => {
         this.setState({search: event.target.value});
-    }
+    };
 
     // on submit just output the result for clarity; obviously remove this
-    handleSubmit(event) {
-        alert(`Query: ${this.state.search}`);
-    }
+    handleSubmit = (event) => {
+        alert(this.state.search);
+    };
 
 
     render() {
+        if (this.state.authenticated === null) return null;
+
+        const welcomeBackMessage = this.state.authenticated ? (
+            <div>
+                <p className="lead">Welcome back , NAME</p>
+                <Button onClick={this.logout}>Log out</Button>
+            </div>
+        ) : (
+            <div>
+                <p className="lead">Looks like you aren't signed in</p>
+                <Button onClick={this.login}>Log in or register!</Button>
+            </div>
+        );
+
         return (
             <div className="App">
                 <div>
                     <Jumbotron fluid className="MainJumbo">
                         <Container fluid>
-                            <h1 className="display-3">Welcome to CarBay</h1>
+                            {welcomeBackMessage}
+                            <h1 className="display-3">CarBay</h1>
                             <p className="lead">The <b>number 1</b> site for second hand cars</p>
                         </Container>
                         <div className="CarSearcher">
@@ -49,6 +89,5 @@ class Home extends Component {
             </div>
         );
     }
-}
+});
 
-export default Home;
