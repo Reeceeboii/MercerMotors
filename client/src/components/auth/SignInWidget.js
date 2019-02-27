@@ -4,7 +4,7 @@ import OktaSignIn from '@okta/okta-signin-widget';
 import '@okta/okta-signin-widget/dist/css/okta-sign-in.min.css';
 import '@okta/okta-signin-widget/dist/css/okta-theme.css';
 
-class SignInWidget extends Component {
+export default class OktaSignInWidget extends Component {
     componentDidMount() {
         const el = ReactDOM.findDOMNode(this);
         this.widget = new OktaSignIn({
@@ -21,6 +21,4 @@ class SignInWidget extends Component {
     render() {
         return <div />;
     }
-}
-
-export default SignInWidget;
+};

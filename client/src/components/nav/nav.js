@@ -13,7 +13,7 @@ class NavBar extends Component {
         this.state = {
             isOpen: false,
             //TODO link this name with OKTA
-            name: "Reece"
+            name: "username goes here"
         };
     }
 
@@ -26,7 +26,11 @@ class NavBar extends Component {
     render() {
         return (
             <Navbar className="NavBar" light expand="md">
-                <NavbarBrand><Link to="/">CarBay</Link></NavbarBrand>
+                <NavbarBrand>
+                    <Link to="/">
+                        <img width="150" src={'sign_in_logo.png'} alt=""/>
+                    </Link>
+                </NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
