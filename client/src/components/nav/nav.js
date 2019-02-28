@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
 import './nav.css';
 import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Button,
-    NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+    NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, InputGroup, Input, InputGroupAddon
+} from 'reactstrap';
 
 export default withAuth(class NavBar extends Component {
     constructor(props) {
@@ -12,7 +13,8 @@ export default withAuth(class NavBar extends Component {
         this.state = {
             isOpen: false,
             username: "My account",
-            logInOutButtonText: "Log in"
+            logInOutButtonText: "Log in",
+            search: ""
         };
     }
 
@@ -46,6 +48,18 @@ export default withAuth(class NavBar extends Component {
         });
     };
 
+    // changes to the search box are handled here
+    handleChange = (event) => {
+        this.setState({search: event.target.value});
+    };
+
+    // on submit just output the result for clarity; obviously remove this
+    // on submit just output the result for clarity; obviously remove this
+    handleSubmit = (event) => {
+        const redirect = ("/cars/" + this.state.search);
+        redirect(redirect);
+        
+    };
 
     render() {
         let logInOutButton = null;
@@ -55,7 +69,7 @@ export default withAuth(class NavBar extends Component {
             logInOutButton = <Button onClick={this.logout}>{this.state.logInOutButtonText}</Button>
         }
         return (
-            <Navbar className="NavBar" light expand="md">
+            <Navbar className="NavBar" light expand="md" sticky="top">
                 <NavbarBrand>
                     <Link to="/">
                         <img width="150" src={'sign_in_logo.png'} alt=""/>
@@ -63,7 +77,7 @@ export default withAuth(class NavBar extends Component {
                 </NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
+                    <Nav className="mr-auto" navbar>
                         <NavItem>
                             <NavLink>
                                 <Link to="/">Home</Link>
@@ -90,6 +104,14 @@ export default withAuth(class NavBar extends Component {
                         </UncontrolledDropdown>
                     </Nav>
                 </Collapse>
+                <form onSubmit={this.handleSubmit}>
+                    <InputGroup>
+                        <Input value={this.state.search} onChange={this.handleChange}/>
+                        <InputGroupAddon addonType="append">
+                            <Button color="primary" type="submit" value="Submit">Search!</Button>
+                        </InputGroupAddon>
+                    </InputGroup>
+                </form>
             </Navbar>
         );
     }

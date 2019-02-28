@@ -31,16 +31,6 @@ export default withAuth(class Home extends Component {
 
 
 
-    // changes to the search box are handled here
-    handleChange = (event) => {
-        this.setState({search: event.target.value});
-    };
-
-    // on submit just output the result for clarity; obviously remove this
-    handleSubmit = (event) => {
-        alert(this.state.search);
-    };
-
     onDismiss = () => {
         this.setState({ visible: false });
     };
@@ -49,47 +39,36 @@ export default withAuth(class Home extends Component {
     render() {
         if (this.state.authenticated === null) return null;
 
-        let welcomeBackMessage = null;
-        if(!this.state.authenticated) {
-            welcomeBackMessage = (
-            <Alert style={{width: "75%", margin: "auto", textAlign: "center"}}
-                   color="primary" isOpen={this.state.visible} toggle={this.onDismiss}>
-                Looks like you aren't signed in. <Link to="/login">Click here to log in or sign up!</Link>
-            </Alert>
-            )}
-
         return (
             <div className="App">
                 <div>
                     <Jumbotron fluid className="MainJumbo">
                         <Container fluid>
-                            {welcomeBackMessage}
-                            <br/>
-                            <h1 className="display-3">CarBay</h1>
-                            <p className="lead">The <b>number 1</b> site for second hand cars</p>
+                            <h1 className="display-3 main">Welcome</h1>
+                            <p className="lead">The absolute number 1 place on the internet for buying and selling second
+                            hand cars. Find your dream car today!</p>
                         </Container>
-                        <div className="CarSearcher">
-                            <form onSubmit={this.handleSubmit}>
-                                <InputGroup>
-                                    <Input value={this.state.search} onChange={this.handleChange}/>
-                                    <InputGroupAddon addonType="append">
-                                        <Button color="primary" type="submit" value="Submit">Search!</Button>
-                                    </InputGroupAddon>
-                                </InputGroup>
-                            </form>
-                        </div>
                     </Jumbotron>
                 </div>
 
                 <div>
                     <Jumbotron fluid className="MainJumbo">
                         <Container fluid>
-                            <br/>
-                            <h1 className="display-4">What we do</h1>
+                            <h1 className="display-3 main">Our services</h1>
+                            <p className="lead">3 columns here with stuff we offer</p>
                         </Container>
                     </Jumbotron>
                 </div>
-            </div>
+
+                <div>
+                    <Jumbotron fluid className="MainJumbo">
+                        <Container fluid>
+                            <h1 className="display-3 main">Other offers</h1>
+                            <p className="lead">blah blah blah</p>
+                        </Container>
+                    </Jumbotron>
+                </div>
+        </div>
         );
     }
 });

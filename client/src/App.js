@@ -44,6 +44,7 @@ class App extends Component {
 
                         <Route exact={true} path='/' render={() => (
                             <div className='App'>
+                                <h1 className="Title">CarBay</h1>
                                 <Navbar/>
                                 <Home />
                             </div>
@@ -65,7 +66,6 @@ class App extends Component {
 
                         <Route path='/login' render={() =>(
                             <div className='App'>
-                                <Navbar/>
                                 <Login baseUrl={OktaConfig.domain}/>
                             </div>
                         )}/>
