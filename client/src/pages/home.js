@@ -29,9 +29,6 @@ export default withAuth(class Home extends Component {
         this.props.auth.login('/');
     };
 
-    logout = async () => {
-        this.props.auth.logout('/');
-    };
 
 
     // changes to the search box are handled here
@@ -81,6 +78,15 @@ export default withAuth(class Home extends Component {
                                 </InputGroup>
                             </form>
                         </div>
+                    </Jumbotron>
+                </div>
+
+                <div>
+                    <Jumbotron fluid className="MainJumbo">
+                        <Container fluid>
+                            <br/>
+                            <h1 className="display-4">What we do</h1>
+                        </Container>
                     </Jumbotron>
                 </div>
             </div>

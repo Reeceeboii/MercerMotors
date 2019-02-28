@@ -30,15 +30,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: "My account"
         };
-    }
-
-    componentWillMount() {
-        if((JSON.parse(localStorage.getItem('okta-token-storage')) !== null)) {
-            let retrievedName = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.name;
-            this.setState({ username: retrievedName });
-        }
     }
 
     render() {
@@ -50,28 +42,32 @@ class App extends Component {
                               redirect_uri={OktaConfig.redirect_uri}
                               onAuthRequired={onAuthRequired}>
 
-                        <Navbar accountPlaceholder={this.state.username}/>
-
                         <Route exact={true} path='/' render={() => (
                             <div className='App'>
+                                <Navbar/>
                                 <Home />
                             </div>
                         )}/>
 
                         <Route exact={true} path='/cars' render={() => (
                             <div className='App'>
+                                <Navbar/>
                                 <Cars />
                             </div>
                         )}/>
 
                         <SecureRoute exact={true} path='/user' render={() => (
                             <div className='App'>
+                                <Navbar/>
                                 <User/>
                             </div>
                         )}/>
 
                         <Route path='/login' render={() =>(
-                            <Login baseUrl={OktaConfig.domain}/>
+                            <div className='App'>
+                                <Navbar/>
+                                <Login baseUrl={OktaConfig.domain}/>
+                            </div>
                         )}/>
 
                         <Route path='/implicit/callback' component={ImplicitCallback}/>

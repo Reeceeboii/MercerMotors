@@ -1,17 +1,44 @@
 import React, {Component} from 'react';
 import { Link } from 'react-router-dom';
+import { withAuth } from '@okta/okta-react';
 import './nav.css';
 import {
-    Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem,
+    Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Button,
     NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
-class NavBar extends Component {
+export default withAuth(class NavBar extends Component {
     constructor(props) {
         super(props);
         this.state = {
             isOpen: false,
+            username: "My account",
+            logInOutButtonText: "Log in"
         };
     }
+
+    tokenExists = (token) => {
+        for(let key in token){
+            if(token.hasOwnProperty(key)){
+                return true;
+            }
+        }
+        return false;
+    };
+
+    componentDidMount() {
+        if(this.tokenExists(JSON.parse(localStorage.getItem('okta-token-storage')))) {
+            let retrievedName = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.name;
+            this.setState({ username: retrievedName, logInOutButtonText: "Log out"});
+        }
+    }
+
+    logout = async () => {
+        this.props.auth.logout('/login');
+    };
+
+    login = async () => {
+        this.props.auth.login('/')
+    };
 
     toggle = () => {
         this.setState({
@@ -19,7 +46,14 @@ class NavBar extends Component {
         });
     };
 
+
     render() {
+        let logInOutButton = null;
+        if(this.state.logInOutButtonText === "Log in"){
+            logInOutButton = <Button onClick={this.login}>{this.state.logInOutButtonText}</Button>
+        }else{
+            logInOutButton = <Button onClick={this.logout}>{this.state.logInOutButtonText}</Button>
+        }
         return (
             <Navbar className="NavBar" light expand="md">
                 <NavbarBrand>
@@ -37,23 +71,20 @@ class NavBar extends Component {
                         </NavItem>
                         <NavItem>
                             <NavLink>
-                                <Link to="/">GitHub</Link>
+                                <a href="https://github.com/Reeceeboii" target="_blank" rel="noopener noreferrer">GitHub</a>
                             </NavLink>
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
-                                {this.props.accountPlaceholder}
+                                {this.state.username}
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
-                                    <Link to="/user">Account settings</Link>
-                                </DropdownItem>
-                                <DropdownItem>
-                                    <Link to="/">My stars</Link>
+                                    <Link to="/user">Account</Link>
                                 </DropdownItem>
                                 <DropdownItem divider />
                                 <DropdownItem>
-                                    <Link to="/">Log out</Link>
+                                    {logInOutButton}
                                 </DropdownItem>
                             </DropdownMenu>
                         </UncontrolledDropdown>
@@ -62,6 +93,4 @@ class NavBar extends Component {
             </Navbar>
         );
     }
-}
-
-export default NavBar;
+})
