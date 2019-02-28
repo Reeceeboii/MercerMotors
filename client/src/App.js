@@ -27,6 +27,20 @@ function onAuthRequired({history}) {
 
 // main app component, used for most Okta auth stuff and routing
 class App extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            username: "My account"
+        };
+    }
+
+    componentWillMount() {
+        if((JSON.parse(localStorage.getItem('okta-token-storage')) !== null)) {
+            let retrievedName = JSON.parse(localStorage.getItem('okta-token-storage')).idToken.claims.name;
+            this.setState({ username: retrievedName });
+        }
+    }
+
     render() {
         return (
             <Router>
@@ -36,7 +50,7 @@ class App extends Component {
                               redirect_uri={OktaConfig.redirect_uri}
                               onAuthRequired={onAuthRequired}>
 
-                        <Navbar/>
+                        <Navbar accountPlaceholder={this.state.username}/>
 
                         <Route exact={true} path='/' render={() => (
                             <div className='App'>

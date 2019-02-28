@@ -8,20 +8,16 @@ import {
 class NavBar extends Component {
     constructor(props) {
         super(props);
-
-        this.toggle = this.toggle.bind(this);
         this.state = {
             isOpen: false,
-            //TODO link this name with OKTA
-            name: "username goes here"
         };
     }
 
-    toggle() {
+    toggle = () => {
         this.setState({
             isOpen: !this.state.isOpen
         });
-    }
+    };
 
     render() {
         return (
@@ -46,11 +42,11 @@ class NavBar extends Component {
                         </NavItem>
                         <UncontrolledDropdown nav inNavbar>
                             <DropdownToggle nav caret>
-                                {this.state.name}
+                                {this.props.accountPlaceholder}
                             </DropdownToggle>
                             <DropdownMenu right>
                                 <DropdownItem>
-                                    <Link to="/user">My account</Link>
+                                    <Link to="/user">Account settings</Link>
                                 </DropdownItem>
                                 <DropdownItem>
                                     <Link to="/">My stars</Link>

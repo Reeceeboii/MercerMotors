@@ -52,17 +52,14 @@ export default withAuth(class Home extends Component {
     render() {
         if (this.state.authenticated === null) return null;
 
-        const welcomeBackMessage = this.state.authenticated ? (
-            <div>
-                <p className="lead">Welcome back , NAME</p>
-                <Button onClick={this.logout}>Log out</Button>
-            </div>
-        ) : (
-            <Alert style={{ width: "75%", margin: "auto", textAlign: "center"}}
+        let welcomeBackMessage = null;
+        if(!this.state.authenticated) {
+            welcomeBackMessage = (
+            <Alert style={{width: "75%", margin: "auto", textAlign: "center"}}
                    color="primary" isOpen={this.state.visible} toggle={this.onDismiss}>
                 Looks like you aren't signed in. <Link to="/login">Click here to log in or sign up!</Link>
             </Alert>
-            );
+            )}
 
         return (
             <div className="App">
