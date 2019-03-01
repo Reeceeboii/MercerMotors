@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
        });
 });
 
-router.get('/:make', (req, res, next) => {
+router.get('/queries/:make', (req, res, next) => {
    carSchema.findByMake(req.params.make)
        .exec()
        .then(doc => {
@@ -35,16 +35,31 @@ router.get('/:make', (req, res, next) => {
        })
 });
 
+router.get('/all_cars/recently_sold', (req, res, next) => {
+   carSchema.findRecentlySold()
+       .exec()
+       .then(doc => {
+           res.status(200).json(doc);
+       })
+       .catch(err => {
+           res.status(500).json({
+               error: "Error from GET cars/:recently_sold",
+               details: err
+           })
+       })
+});
+
 router.post('/', (req, res, next) => {
     const newCar = new carSchema({
         _id: new mongoose.Types.ObjectId,
-        owner_id: new mongoose.Types.ObjectId(req.params.owner_id),
+        owner: new mongoose.Types.String(req.params.owner),
         make: new mongoose.Types.String(req.params.make),
         model: req.params.model,
         release_date: req.params.release_date,
         price: req.params.price,
         type: req.params.type,
-        gearbox: req.params.gearbox
+        gearbox: req.params.gearbox,
+        sold: false
     });
     newCar
         .save()

@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route} from "react-router-dom";
 import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 
 import Navbar from './components/nav/nav';
+import Footer from './components/footer/footer';
 import Home from './pages/home';
 import Cars from './pages/cars';
 import User from './pages/user';
@@ -47,6 +48,7 @@ class App extends Component {
                                 <h1 className="Title">CarBay</h1>
                                 <Navbar/>
                                 <Home />
+                                <Footer/>
                             </div>
                         )}/>
 
@@ -54,6 +56,7 @@ class App extends Component {
                             <div className='App'>
                                 <Navbar/>
                                 <Cars />
+                                <Footer/>
                             </div>
                         )}/>
 
@@ -61,6 +64,7 @@ class App extends Component {
                             <div className='App'>
                                 <Navbar/>
                                 <User/>
+                                <Footer/>
                             </div>
                         )}/>
 

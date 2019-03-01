@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {Button, Container, Input, InputGroup, InputGroupAddon, Jumbotron, Alert} from "reactstrap";
-
-import { Link } from 'react-router-dom';
+import {Button, Col, Container, Input, InputGroup, InputGroupAddon, Jumbotron, ListGroup, Navbar} from "reactstrap";
 import { withAuth } from '@okta/okta-react';
 
 export default withAuth(class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { authenticated: null };
+        this.state = {
+            authenticated: null,
+            recent_sales: []
+        };
     }
 
     checkAuthentication = async () => {
@@ -19,6 +20,10 @@ export default withAuth(class Home extends Component {
 
     async componentDidMount () {
         this.checkAuthentication();
+        fetch('/cars/all_cars/recently_sold')
+            .then(res => res.json())
+            .then(recent_sales => this.setState({recent_sales}, () => console.log(recent_sales)));
+
     };
 
     async componentDidUpdate ()  {
@@ -47,17 +52,30 @@ export default withAuth(class Home extends Component {
                             <h1 className="display-3 main">Welcome</h1>
                             <p className="lead">The absolute number 1 place on the internet for buying and selling second
                             hand cars. Find your dream car today!</p>
+                            <form>
+                                <InputGroup>
+                                    <Input value={this.state.search} onChange={this.handleChange}/>
+                                    <InputGroupAddon addonType="append">
+                                        <Button onClick={this.handleSubmit} color="primary" type="submit" value="Submit">Search!</Button>
+                                    </InputGroupAddon>
+                                </InputGroup>
+                            </form>
                         </Container>
                     </Jumbotron>
                 </div>
 
                 <div>
                     <Jumbotron fluid className="MainJumbo">
-                        <Container fluid>
-                            <h1 className="display-3 main">Our services</h1>
-                            <p className="lead">3 columns here with stuff we offer</p>
-                        </Container>
-                    </Jumbotron>
+                            <h1 className="display-3 main">Recent sales</h1>
+                            <p className="lead">All of these cars have recently been sold, you can get similar deals to
+                            these, just start searching!</p>
+                            {this.state.recent_sales.map(car =>
+                                <Col style={{backgroundColor: "#000000"}} xxs="6" >
+                                    <h1>{car.make} {car.model}</h1>
+                                </Col>
+                            )}
+
+                            </Jumbotron>
                 </div>
 
                 <div>

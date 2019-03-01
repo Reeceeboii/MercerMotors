@@ -54,11 +54,13 @@ export default withAuth(class NavBar extends Component {
     };
 
     // on submit just output the result for clarity; obviously remove this
-    // on submit just output the result for clarity; obviously remove this
     handleSubmit = (event) => {
-        const redirect = ("/cars/" + this.state.search);
-        redirect(redirect);
-        
+        alert(this.state.search);
+
+        fetch('/cars/' + this.state.search)
+            .then(res => res.json())
+            .then(cars => this.setState({cars}, () => console.log('Cars fetched...', cars)));
+
     };
 
     render() {
@@ -69,7 +71,7 @@ export default withAuth(class NavBar extends Component {
             logInOutButton = <Button onClick={this.logout}>{this.state.logInOutButtonText}</Button>
         }
         return (
-            <Navbar className="NavBar" light expand="md" sticky="top">
+            <Navbar className="NavBar" light expand="md">
                 <NavbarBrand>
                     <Link to="/">
                         <img width="150" src={'sign_in_logo.png'} alt=""/>
@@ -77,7 +79,7 @@ export default withAuth(class NavBar extends Component {
                 </NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
-                    <Nav className="mr-auto" navbar>
+                    <Nav className="ml-auto" navbar>
                         <NavItem>
                             <NavLink>
                                 <Link to="/">Home</Link>
@@ -104,14 +106,6 @@ export default withAuth(class NavBar extends Component {
                         </UncontrolledDropdown>
                     </Nav>
                 </Collapse>
-                <form onSubmit={this.handleSubmit}>
-                    <InputGroup>
-                        <Input value={this.state.search} onChange={this.handleChange}/>
-                        <InputGroupAddon addonType="append">
-                            <Button color="primary" type="submit" value="Submit">Search!</Button>
-                        </InputGroupAddon>
-                    </InputGroup>
-                </form>
             </Navbar>
         );
     }

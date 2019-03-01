@@ -1,13 +1,16 @@
 body {
     padding: 5vw;
-    background-image: url('images/background.png');
-    background-size: cover;
+    background-image: linear-gradient(to right top, #a7477d, #9a4787,
+    #894890, #744a97, #5a4d9d, #4a5dad, #336dbb, #007cc6, #009ddc, #00bee9, #00ddef, #5ffbf1);
+    background-size: auto 100%;
     background-repeat: no-repeat;
 }
 
 .MainJumbo {
+    border-radius: 0 0 25px 25px;
+    background-color: rgba(250, 250, 250, .25);
     text-align: center;
-    background-color: #DDDDDD;
+    color: #FFFFFF;
 }
 
 .Title {
@@ -21,12 +24,13 @@ body {
 .display-3 {
     padding: 50px;
     text-align: center ;
-    color: #000000;
+    color: #FFFFFF;
     font-weight: normal;
     font-size: 7vw;
 }
 
 .display-4 {
+    color: #FFFFFF;
     font-size: 4.5vw;
     font-weight: bolder;
 }
