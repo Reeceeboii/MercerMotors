@@ -21,7 +21,7 @@ class Footer extends Component {
                                 target="_blank" rel="noopener noreferrer">My GitHub :)</a></dd>
                             </dl>
                         </Col>
-                        <Col className="Copy" xs="12">
+                        <Col className="Copy" xs="12" >
                             <dd>&copy; <a className="FooterLink" href="https://reecemercer.dev" target="_blank" rel="noopener noreferrer">
                                 Reece Mercer 2019</a></dd>
                         </Col>

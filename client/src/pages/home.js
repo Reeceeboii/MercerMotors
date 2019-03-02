@@ -70,7 +70,7 @@ export default withAuth(class Home extends Component {
                             <p className="lead">All of these cars have recently been sold, you can get similar deals to
                             these, just start searching!</p>
                             {this.state.recent_sales.map(car =>
-                                <Col style={{backgroundColor: "#000000"}} xxs="6" >
+                                <Col style={{backgroundColor: "#000000"}} xs="6" >
                                     <h1>{car.make} {car.model}</h1>
                                 </Col>
                             )}

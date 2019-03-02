@@ -31,7 +31,7 @@ export default withAuth(class User extends Component {
             <div className='App'>
                 <Jumbotron fluid className="MainJumbo">
                     <Container fluid style={{margin: "auto"}}>
-                        <h2>Welcome to your account</h2>
+                        <h2>Welcome to your account, {this.state.userName}</h2>
                         <Nav tabs>
                             <NavItem>
                                 <NavLink

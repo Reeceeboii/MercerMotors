@@ -45,7 +45,7 @@ class App extends Component {
 
                         <Route exact={true} path='/' render={() => (
                             <div className='App'>
-                                <h1 className="Title">CarBay</h1>
+                                <h1 className="Title">Mercer Motors</h1>
                                 <Navbar/>
                                 <Home />
                                 <Footer/>

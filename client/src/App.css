@@ -1,7 +1,8 @@
 body {
     padding: 5vw;
-    background-image: linear-gradient(to right top, #a7477d, #9a4787,
-    #894890, #744a97, #5a4d9d, #4a5dad, #336dbb, #007cc6, #009ddc, #00bee9, #00ddef, #5ffbf1);
+    background: #C04848;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #480048, #C04848);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #480048, #C04848); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     background-size: auto 100%;
     background-repeat: no-repeat;
 }
