@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
 import { withAuth } from '@okta/okta-react';
-import {Jumbotron, Nav, NavItem, NavLink, TabContent, TabPane, Row, Col, Container} from 'reactstrap';
-import classnames from 'classnames';
+import '../styles/user.css';
+import {Jumbotron, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
+import Container from "reactstrap/es/Container";
 
 export default withAuth(class User extends Component {
     state = {
-        activeTab: '1',
         userName: '',
-        userEmail: ''
+        userEmail: '',
+        purchases: [] // array of purchases the user has made
     };
 
     componentDidMount() {
@@ -15,57 +16,44 @@ export default withAuth(class User extends Component {
         this.setState({
             userName: idToken.idToken.claims.name,
             userEmail: idToken.idToken.claims.email
-        });
+        }, this.loadPurchases);
     }
 
-    toggle = (tab) => {
-        if (this.state.activeTab !== tab) {
-            this.setState({
-                activeTab: tab
-            });
-        }
+
+    // loads all purchases from the 'sales' collection that match the user's username from okta token
+    loadPurchases() {
+        fetch(`/sales/${this.state.userName}`)
+            .then(res => res.json())
+            .then(purchases => this.setState({purchases}, () =>
+                console.log('Purchases fetched...', purchases)));
     };
 
+
     render() {
+        const purchases = this.state.purchases.length === 0 ?
+            "You haven't purchased anything yet, go to the marketplace and start looking!" :
+            this.state.purchases.map(purchase =>
+                <ListGroupItem className="PurchaseItem" key={purchase._id}>
+                    You bought [car._id] from {purchase.seller} for £{purchase.sale_total}
+                </ListGroupItem>
+            );
+
+
         return (
             <div className='App'>
-                <Jumbotron fluid className="MainJumbo">
-                    <Container fluid style={{margin: "auto"}}>
-                        <h2>Welcome to your account, {this.state.userName}</h2>
-                        <Nav tabs>
-                            <NavItem>
-                                <NavLink
-                                    className={classnames({ active: this.state.activeTab === '1' })}
-                                    onClick={() => { this.toggle('1'); }}
-                                >
-                                    Account Information
-                                </NavLink>
-                            </NavItem>
-                            <NavItem>
-                                <NavLink
-                                    className={classnames({ active: this.state.activeTab === '2' })}
-                                    onClick={() => { this.toggle('2'); }}
-                                >
-                                    Your starred cars
-                                </NavLink>
-                            </NavItem>
-                        </Nav>
-
-                        <TabContent activeTab={this.state.activeTab}>
-                            <TabPane tabId="1">
-                                <Row>
-                                    <Col sm="12">
-                                        <br/>
-                                        <h4>Your username: {this.state.userName}</h4>
-                                        <h4>Your email: {this.state.userEmail}</h4>
-                                    </Col>
-                                </Row>
-                            </TabPane>
-                            <TabPane tabId="2">
-                                <h2>Put stars here dummy</h2>
-                            </TabPane>
-                        </TabContent>
-                    </Container>
+                <Jumbotron fluid className="MainJumboTop">
+                    <h2 className="Splash">Welcome to your account, {this.state.userName}</h2>
+                        <Row className="AccountInfoRow">
+                            <Col className="AccountInfo" xs="6">
+                                <h3>Account information</h3>
+                            </Col>
+                            <ListGroup>
+                            <Col className="PurchaseList" xs="6">
+                                <h3>Your purchases</h3>
+                                {purchases}
+                                </Col>
+                            </ListGroup>
+                        </Row>
                 </Jumbotron>
             </div>
         );

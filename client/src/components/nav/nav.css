@@ -1,3 +1,5 @@
 .NavBar {
+    border-radius: 25px 25px 0 0;
+    border-bottom: 1px solid rgba(256, 256, 256, .5);
     background-color: rgba(225, 225, 225, .25);
 }

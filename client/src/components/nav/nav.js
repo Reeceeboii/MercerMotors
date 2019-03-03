@@ -1,11 +1,10 @@
 import React, {Component} from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { withAuth } from '@okta/okta-react';
 import './nav.css';
 import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Button,
-    NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem, InputGroup, Input, InputGroupAddon
-} from 'reactstrap';
+    NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
 export default withAuth(class NavBar extends Component {
     constructor(props) {

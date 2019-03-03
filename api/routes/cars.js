@@ -8,7 +8,7 @@ mongoose.connect(database);
 
 
 router.get('/', (req, res, next) => {
-   carSchema.find({})
+   carSchema.getAllForSale()
        .exec()
        .then(doc => {
            res.status(200).json(doc);
@@ -21,7 +21,7 @@ router.get('/', (req, res, next) => {
        });
 });
 
-router.get('/queries/:make', (req, res, next) => {
+router.get('/make/:make', (req, res, next) => {
    carSchema.findByMake(req.params.make)
        .exec()
        .then(doc => {
@@ -29,7 +29,21 @@ router.get('/queries/:make', (req, res, next) => {
        })
        .catch(err => {
            res.status(500).json({
-               error: "Error from GET cars/:make",
+               error: "Error from GET cars/make/:make",
+               details: err
+           })
+       })
+});
+
+router.get('/id/:id', (req, res, next) => {
+   carSchema.findByID(req.params.id)
+       .exec()
+       .then(doc => {
+           res.status(200).json(doc);
+       })
+       .catch(err => {
+           res.status(500).json({
+               error: "Error from GET cars/id/:id",
                details: err
            })
        })

@@ -1,0 +1,16 @@
+.Splash {
+    padding-bottom: 50px;
+}
+
+.PurchaseItem {
+    margin: auto;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.PurchaseList {
+    margin: auto;
+}
+
+.AccountInfoRow {
+    margin: auto;
+}

@@ -7,9 +7,16 @@ body {
     background-repeat: no-repeat;
 }
 
-.MainJumbo {
+.MainJumboTop {
     border-radius: 0 0 25px 25px;
-    background-color: rgba(250, 250, 250, .25);
+    background-color: rgba(250, 250, 250, .20);
+    text-align: center;
+    color: #FFFFFF;
+}
+
+.MainJumboNotTop {
+    border-radius: 25px 25px 25px 25px;
+    background-color: rgba(250, 250, 250, .20);
     text-align: center;
     color: #FFFFFF;
 }
