@@ -73,19 +73,19 @@ export default withAuth(class NavBar extends Component {
             <Navbar className="NavBar" light expand="md">
                 <NavbarBrand>
                     <Link to="/">
-                        <img width="150" src={'sign_in_logo.png'} alt=""/>
+                        <img width="150" src={'nav_logo.png'} alt=""/>
                     </Link>
                 </NavbarBrand>
                 <NavbarToggler onClick={this.toggle} />
                 <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
                         <NavItem>
-                            <NavLink>
+                            <NavLink className="inactive" activeClassName="active">
                                 <Link to="/">Home</Link>
                             </NavLink>
                         </NavItem>
                         <NavItem>
-                            <NavLink>
+                            <NavLink className="inactive" activeClassName="active">
                                 <a href="https://github.com/Reeceeboii" target="_blank" rel="noopener noreferrer">GitHub</a>
                             </NavLink>
                         </NavItem>

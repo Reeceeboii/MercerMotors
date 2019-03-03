@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './cars.css';
+import './carCard.css';
 
 import { Card, CardText, CardBody, Button,
     CardTitle, ListGroup, ListGroupItem, CardHeader, CardFooter} from 'reactstrap';

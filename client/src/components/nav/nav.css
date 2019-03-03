@@ -3,3 +3,13 @@
     border-bottom: 1px solid rgba(256, 256, 256, .5);
     background-color: rgba(225, 225, 225, .25);
 }
+
+.inactive {
+    color: #fff;
+    text-decoration: none;
+}
+
+.active {
+    color: red;
+    text-decoration: none;
+}

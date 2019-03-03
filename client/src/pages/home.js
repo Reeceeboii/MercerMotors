@@ -3,6 +3,8 @@ import { Button, Col, Container, Input, InputGroup, InputGroupAddon, Jumbotron }
 import { withAuth } from '@okta/okta-react';
 import Row from "reactstrap/es/Row";
 
+import RecentlySoldCar from '../components/cars/RecentlySoldCar';
+
 export default withAuth(class Home extends Component {
     constructor(props) {
         super(props);
@@ -29,16 +31,6 @@ export default withAuth(class Home extends Component {
 
     async componentDidUpdate ()  {
         this.checkAuthentication();
-    };
-
-    login = async () => {
-        this.props.auth.login('/');
-    };
-
-
-
-    onDismiss = () => {
-        this.setState({ visible: false });
     };
 
 
@@ -73,7 +65,8 @@ export default withAuth(class Home extends Component {
                             <Row>
                             {this.state.recent_sales.map(car =>
                                 <Col xs="12" sm="6" xl="6">
-                                <h1>{car.make} {car.model} {car._id} {car.price}</h1>
+                                <RecentlySoldCar make={car.make} model={car.model}
+                                                 owner={car.owner} price={car.price} type={car.type} gearbox={car.gearbox}/>
                                 </Col>
                             )}
                             </Row>
