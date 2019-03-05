@@ -44,11 +44,11 @@ export default withAuth(class User extends Component {
                 <Jumbotron fluid className="MainJumboTop">
                     <h2 className="Splash">Welcome to your account, {this.state.userName}</h2>
                         <Row className="AccountInfoRow">
-                            <Col className="AccountInfo" xs="12" sm="12">
+                            <Col className="AccountInfo" xs="12" sm="6" xl="6">
                                 <h3>Account information</h3>
                             </Col>
                             <ListGroup>
-                            <Col className="PurchaseList" xs="12" sm="12">
+                            <Col className="PurchaseList" xs="12" sm="6" xl="6">
                                 <h3>Your purchases</h3>
                                 {purchases}
                             </Col>
