@@ -1,4 +1,4 @@
-# CarBay
+# Business Systems Coursework
 This is a coursework project for the Business Systems module. It is an e-commerce based dynamic website 
 for buying and selling second hand cars.
 

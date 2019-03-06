@@ -3,6 +3,10 @@ import { Button, Col, Container, Input, InputGroup, InputGroupAddon, Jumbotron }
 import { withAuth } from '@okta/okta-react';
 import Row from "reactstrap/es/Row";
 
+import Engineer from '../images/engineer.png';
+import Finance from '../images/piggy-bank.png';
+import CustomerService from '../images/customer-service.png';
+
 import RecentlySoldCar from '../components/cars/RecentlySoldCar';
 
 export default withAuth(class Home extends Component {
@@ -76,8 +80,30 @@ export default withAuth(class Home extends Component {
                 <div>
                     <Jumbotron fluid className="MainJumboNotTop">
                         <Container fluid>
-                            <h1 className="display-3 main">Other offers</h1>
-                            <p className="lead">blah blah blah</p>
+                            <h1 className="display-3 main">Other details about our services</h1>
+                            <Row>
+                            <Col xs="12" sm="4" xl="4">
+                                <img className="OfferImage" src={Engineer} alt=""/>
+                                <h3>Full mechanical checks</h3>
+                                <p>All of the vehicles sold and listed on Mercer Motors are guaranteed to be of
+                                top quality. Fully trained mechanics give all vehicles are full check over before
+                                any handover takes place to make sure you get nothing but the best.</p>
+                            </Col>
+                            <Col xs="12" sm="4" xl="4">
+                                <img className="OfferImage" src={Finance} alt=""/>
+                                <h3>Value for money</h3>
+                                <p>With some of the lowest prices around, you can always trust on our marketplace
+                                members to deliver a good deal. Whether you're buying a hatchback or a people carrier,
+                                prices are always fair.</p>
+                            </Col>
+                            <Col xs="12" sm="4" xl="4">
+                                <img className="OfferImage" src={CustomerService} alt=""/>
+                                <h3>24/7 sales support</h3>
+                                <p>Finance questions? Help with your account? Or just want a friendly chat?
+                                Our friendly support team are on the line 24/7 ready to support you through any
+                                queries you may have.</p>
+                            </Col>
+                            </Row>
                         </Container>
                     </Jumbotron>
                 </div>

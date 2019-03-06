@@ -60,16 +60,7 @@ class App extends Component {
                             </div>
                         )}/>
 
-                        <Route exact={true} path='/car' render={() => (
-                            <div className='App'>
-                                <Navbar/>
-                                <Cars />
-                                <Footer/>
-                            </div>
-                        )}/>
-
-
-                        <SecureRoute exact={true} path='/user/:username' render={() => (
+                        <SecureRoute exact={true} path='/user' render={() => (
                             <div className='App'>
                                 <Navbar/>
                                 <User/>

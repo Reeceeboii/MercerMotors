@@ -59,7 +59,6 @@ export default withAuth(class NavBar extends Component {
         fetch('/cars/' + this.state.search)
             .then(res => res.json())
             .then(cars => this.setState({cars}, () => console.log('Cars fetched...', cars)));
-
     };
 
     render() {

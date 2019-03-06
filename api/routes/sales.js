@@ -6,7 +6,7 @@ const saleSchema = require('../mongooseSchemas/saleSchema');
 const database = "mongodb://localhost:27017/bs-dw";
 mongoose.connect(database);
 
-router.get('/user/:username', (req, res, next) => {
+router.get('/:username', (req, res, next) => {
     saleSchema.findUserSales(req.params.username)
         .exec()
         .then(doc => {
