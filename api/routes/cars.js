@@ -7,15 +7,15 @@ const database = "mongodb://localhost:27017/bs-dw";
 mongoose.connect(database);
 
 
-router.get('/', (req, res, next) => {
-   carSchema.getAllForSale()
+router.get('/cars/:search', (req, res, next) => {
+   carSchema.getAllForSale(req.params.search)
        .exec()
        .then(doc => {
            res.status(200).json(doc);
        })
        .catch(err => {
           res.status(500).json({
-              error: "Error from GET cars/",
+              error: "Error from GET cars/:search",
               details: err
           })
        });
