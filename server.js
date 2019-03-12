@@ -1,8 +1,8 @@
 const http = require('http');
 const middleware = require('./middlewareRouter');
 
-// hardcoded port for dev purposes; this would be an injected environment variable
-// when the app is being hosted
+// hardcoded port for dev purposes
+// when the app is being hosted this would be different
 const port = process.env.PORT || 5000;
 
 // bind middleware to http server as a request handler

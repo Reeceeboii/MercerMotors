@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 
 const mongoose = require('mongoose');
+const sanitise = require('mongo-sanitize');
 const carSchema = require('../mongooseSchemas/carSchema');
 const database = "mongodb://localhost:27017/bs-dw";
 mongoose.connect(database);
 
 
-router.get('/cars/:search', (req, res, next) => {
-   carSchema.getAllForSale(req.params.search)
+router.get('/search/:search', (req, res, next) => {
+    carSchema.getAllForSale(sanitise(req.params.search))
        .exec()
        .then(doc => {
            res.status(200).json(doc);
@@ -21,22 +22,9 @@ router.get('/cars/:search', (req, res, next) => {
        });
 });
 
-router.get('/make/:make', (req, res, next) => {
-   carSchema.findByMake(req.params.make)
-       .exec()
-       .then(doc => {
-           res.status(200).json(doc);
-       })
-       .catch(err => {
-           res.status(500).json({
-               error: "Error from GET cars/make/:make",
-               details: err
-           })
-       })
-});
-
 router.get('/id/:id', (req, res, next) => {
-   carSchema.findByID(req.params.id)
+    const id = sanitise(req.params.id);
+    carSchema.findByID(id)
        .exec()
        .then(doc => {
            res.status(200).json(doc);
@@ -49,7 +37,7 @@ router.get('/id/:id', (req, res, next) => {
        })
 });
 
-router.get('/all_cars/recently_sold', (req, res, next) => {
+router.get('/recently_sold', (req, res, next) => {
    carSchema.findRecentlySold()
        .exec()
        .then(doc => {
@@ -57,29 +45,29 @@ router.get('/all_cars/recently_sold', (req, res, next) => {
        })
        .catch(err => {
            res.status(500).json({
-               error: "Error from GET cars/:recently_sold",
+               error: "Error from GET cars/recently_sold",
                details: err
            })
        })
 });
 
-router.post('/', (req, res, next) => {
+router.post('/create_new', (req, res, next) => {
     const newCar = new carSchema({
-        _id: new mongoose.Types.ObjectId,
-        owner: new mongoose.Types.String(req.params.owner),
-        make: new mongoose.Types.String(req.params.make),
-        model: req.params.model,
-        release_date: req.params.release_date,
-        price: req.params.price,
-        type: req.params.type,
-        gearbox: req.params.gearbox,
+        _id: new mongoose.Types.ObjectId(),
+        owner: req.body.owner,
+        make: req.body.make,
+        model: req.body.model,
+        release_date: req.body.release_date,
+        price: req.body.price,
+        type: req.body.type,
+        gearbox: req.body.gearbox,
         sold: false
     });
     newCar
         .save()
         .then(result => {
             res.status(201).json({
-                message: "Put request to cars/ endpoint",
+                message: "Post request to cars/create_new endpoint was successful",
                 createdCar: result
             })
         })

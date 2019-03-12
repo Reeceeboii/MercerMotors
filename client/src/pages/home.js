@@ -27,7 +27,7 @@ export default withAuth(class Home extends Component {
 
     async componentDidMount () {
         this.checkAuthentication();
-        fetch('/cars/all_cars/recently_sold')
+        fetch('/cars/recently_sold')
             .then(res => res.json())
             .then(recent_sales => this.setState({recent_sales}, () => console.log(recent_sales)));
 

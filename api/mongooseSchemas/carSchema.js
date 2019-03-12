@@ -9,7 +9,7 @@ const carSchema = new Schema({
 
 
 // returns all cars that haven't already been bought, according to a user's search query
-carSchema.statics.getAllForSale = function(cb) {
+carSchema.statics.getAllForSale = function(query, cb) {
     return this.find({ sold: false }, cb);
 };
 

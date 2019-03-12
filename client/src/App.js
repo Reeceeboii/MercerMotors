@@ -13,7 +13,7 @@ import Login from './components/auth/Login';
 import './App.css';
 
 // okta configuration information
-// this is linked to my CarBay application on Okta.com
+// this is linked to my application on Okta.com
 const OktaConfig = {
     domain: 'https://dev-324612.okta.com',
     issuer: 'https://dev-324612.okta.com/oauth2/default',
