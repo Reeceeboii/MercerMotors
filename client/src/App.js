@@ -8,6 +8,7 @@ import Footer from './components/footer/footer';
 import Home from './pages/home';
 import Cars from './pages/cars';
 import User from './pages/user';
+import List from './pages/list';
 import Login from './components/auth/Login';
 
 import './App.css';
@@ -46,31 +47,39 @@ class App extends Component {
                         <Route exact={true} path='/' render={() => (
                             <div className='App'>
                                 <h1 className="Title">Mercer Motors</h1>
-                                <Navbar/>
+                                <Navbar />
                                 <Home />
-                                <Footer/>
+                                <Footer />
                             </div>
                         )}/>
 
                         <Route exact={true} path='/cars' render={() => (
                             <div className='App'>
-                                <Navbar/>
+                                <Navbar />
                                 <Cars />
-                                <Footer/>
+                                <Footer />
                             </div>
                         )}/>
 
                         <SecureRoute exact={true} path='/user' render={() => (
                             <div className='App'>
-                                <Navbar/>
-                                <User/>
-                                <Footer/>
+                                <Navbar />
+                                <User />
+                                <Footer />
                             </div>
                         )}/>
 
                         <Route path='/login' render={() =>(
                             <div className='App'>
                                 <Login baseUrl={OktaConfig.domain}/>
+                            </div>
+                        )}/>
+
+                        <SecureRoute exact={true} path='/list' render={() => (
+                            <div className='App'>
+                                <Navbar />
+                                <List />
+                                <Footer />
                             </div>
                         )}/>
 

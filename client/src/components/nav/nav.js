@@ -57,8 +57,8 @@ export default withAuth(class NavBar extends Component {
         alert(this.state.search);
 
         fetch('/cars/' + this.state.search)
-            .then(res => res.json())
-            .then(cars => this.setState({cars}, () => console.log('Cars fetched...', cars)));
+          .then(res => res.json())
+          .then(cars => this.setState({cars}, () => console.log('Cars fetched...', cars)));
     };
 
     render() {
@@ -69,42 +69,42 @@ export default withAuth(class NavBar extends Component {
             logInOutButton = <Button onClick={this.logout}>{this.state.logInOutButtonText}</Button>
         }
         return (
-            <Navbar className="NavBar" light expand="md">
-                <NavbarBrand>
-                    <Link to="/">
-                        <img width="150" src={'nav_logo.png'} alt=""/>
-                    </Link>
-                </NavbarBrand>
-                <NavbarToggler onClick={this.toggle} />
-                <Collapse isOpen={this.state.isOpen} navbar>
-                    <Nav className="ml-auto" navbar>
-                        <NavItem>
-                            <NavLink className="inactive" activeClassName="active">
-                                <Link to="/">Home</Link>
-                            </NavLink>
-                        </NavItem>
-                        <NavItem>
-                            <NavLink className="inactive" activeClassName="active">
-                                <a href="https://github.com/Reeceeboii" target="_blank" rel="noopener noreferrer">GitHub</a>
-                            </NavLink>
-                        </NavItem>
-                        <UncontrolledDropdown nav inNavbar>
-                            <DropdownToggle nav caret>
-                                {this.state.username}
-                            </DropdownToggle>
-                            <DropdownMenu right>
-                                <DropdownItem>
-                                    <Link to="/user">Account</Link>
-                                </DropdownItem>
-                                <DropdownItem divider />
-                                <DropdownItem>
-                                    {logInOutButton}
-                                </DropdownItem>
-                            </DropdownMenu>
-                        </UncontrolledDropdown>
-                    </Nav>
-                </Collapse>
-            </Navbar>
+          <Navbar className="NavBar" light expand="md">
+              <NavbarBrand>
+                  <Link to="/">
+                      <img width="150" src={'nav_logo.png'} alt=""/>
+                  </Link>
+              </NavbarBrand>
+              <NavbarToggler onClick={this.toggle} />
+              <Collapse isOpen={this.state.isOpen} navbar>
+                  <Nav className="ml-auto" navbar>
+                      <NavItem>
+                          <NavLink activeClassName="selected" tag={Link} to="/">
+                              Home
+                          </NavLink>
+                      </NavItem>
+                      <NavItem>
+                          <NavLink className="NavigationLink" tag={Link} to="/">
+                              GitHub
+                          </NavLink>
+                      </NavItem>
+                      <UncontrolledDropdown nav inNavbar>
+                          <DropdownToggle nav caret>
+                              {this.state.username}
+                          </DropdownToggle>
+                          <DropdownMenu right>
+                              <DropdownItem>
+                                  <Link to="/user">Account</Link>
+                              </DropdownItem>
+                              <DropdownItem divider />
+                              <DropdownItem>
+                                  {logInOutButton}
+                              </DropdownItem>
+                          </DropdownMenu>
+                      </UncontrolledDropdown>
+                  </Nav>
+              </Collapse>
+          </Navbar>
         );
     }
 })

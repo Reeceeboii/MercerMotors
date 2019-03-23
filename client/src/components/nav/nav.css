@@ -4,12 +4,6 @@
     background-color: rgba(225, 225, 225, .25);
 }
 
-.inactive {
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-.active {
-    color: red;
-    text-decoration: none;
+.NavigationLink {
+    color: white;
 }

@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import { withAuth } from '@okta/okta-react';
 import '../styles/user.css';
 import {Jumbotron, Row, Col, ListGroup, ListGroupItem } from 'reactstrap';
-import Container from "reactstrap/es/Container";
 
 export default withAuth(class User extends Component {
     state = {

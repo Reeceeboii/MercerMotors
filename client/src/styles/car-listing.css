@@ -1,0 +1,24 @@
+.CarListingForm {
+    margin: auto;
+    width: 75%;
+}
+
+.EntryCard {
+    background: rgba(255, 255, 255, .25);
+}
+
+.EntryLabel {
+    font-size: 2vw;
+}
+
+@media only screen and (max-width: 600px) {
+    .CarListingForm {
+        margin: auto;
+        width: 90%;
+    }
+
+    .EntryLabel {
+        font-size: 4vw;
+    }
+
+}
