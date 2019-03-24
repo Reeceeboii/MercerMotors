@@ -1,12 +1,40 @@
-.Splash {
-    padding-bottom: 50px;
+.Account {
+    margin: auto;
+    width: 90%;
 }
 
-.PurchaseItem {
-    margin: auto;
-    background-color: rgba(0, 0, 0, 0);
+.AccountTitle {
+    font-size: 4vw;
 }
 
-.PurchaseList {
-    margin: auto;
+.AccountSubtitle {
+    font-size: 2vw;
+}
+
+.AccountInfo {
+    background: rgba(255, 255, 255, .10);
+    height: 100%;
+}
+
+.InfoItem {
+    color: white;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: rgba(255, 255, 255, .25);
+}
+
+.InfoItem:hover {
+    color: white;
+    background: rgba(255, 255, 255, .40);
+}
+
+@media only screen and (max-width: 600px) {
+    .AccountTitle {
+        font-size: 8vw;
+    }
+
+    .AccountSubtitle {
+        font-size: 4vw;
+    }
 }

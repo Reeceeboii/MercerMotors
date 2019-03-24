@@ -37,6 +37,21 @@ router.get('/id/:id', (req, res, next) => {
        })
 });
 
+router.get('/owned_by/:username', (req, res, next) => {
+    const username = sanitise(req.params.username);
+    carSchema.ownedBy(username)
+        .exec()
+        .then(doc => {
+            res.status(200).json(doc)
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: "Error from ge\t cars/owned_by/:username",
+                details: err
+            })
+        })
+});
+
 router.get('/recently_sold', (req, res, next) => {
    carSchema.findRecentlySold()
        .exec()

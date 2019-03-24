@@ -19,6 +19,10 @@ carSchema.statics.findByID = function(id, cb) {
     return this.find({ _id: id }, cb);
 };
 
+// return all cars for sale that are owned by a certain user (sold or not sold)
+carSchema.statics.ownedBy = function(username, cb) {
+    return this.find({ owner: username }, cb);
+};
 
 carSchema.statics.findRecentlySold = function(cb) {
   return this.find({ sold: true }, cb);

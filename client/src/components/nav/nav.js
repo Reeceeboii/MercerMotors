@@ -47,20 +47,6 @@ export default withAuth(class NavBar extends Component {
         });
     };
 
-    // changes to the search box are handled here
-    handleChange = (event) => {
-        this.setState({search: event.target.value});
-    };
-
-    // on submit just output the result for clarity; obviously remove this
-    handleSubmit = (event) => {
-        alert(this.state.search);
-
-        fetch('/cars/' + this.state.search)
-          .then(res => res.json())
-          .then(cars => this.setState({cars}, () => console.log('Cars fetched...', cars)));
-    };
-
     render() {
         let logInOutButton = null;
         if(this.state.logInOutButtonText === "Log in"){
@@ -84,8 +70,8 @@ export default withAuth(class NavBar extends Component {
                           </NavLink>
                       </NavItem>
                       <NavItem>
-                          <NavLink className="NavigationLink" tag={Link} to="/">
-                              GitHub
+                          <NavLink className="NavigationLink" tag={Link} to="/list">
+                              Sell
                           </NavLink>
                       </NavItem>
                       <UncontrolledDropdown nav inNavbar>
@@ -94,7 +80,10 @@ export default withAuth(class NavBar extends Component {
                           </DropdownToggle>
                           <DropdownMenu right>
                               <DropdownItem>
-                                  <Link to="/user">Account</Link>
+                                  <Link to="/user">Your account</Link>
+                              </DropdownItem>
+                              <DropdownItem>
+                                  <Link to="/list">Sell a car with us!</Link>
                               </DropdownItem>
                               <DropdownItem divider />
                               <DropdownItem>

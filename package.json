@@ -1,5 +1,5 @@
 {
-  "name": "Mercer Motors",
+  "name": "MercerMotors",
   "version": "1.0.0",
   "description": "My submission for the Business Systems coursework. A website for buying and selling second hand cars.",
   "main": "server.js",

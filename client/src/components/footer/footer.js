@@ -17,8 +17,10 @@ class Footer extends Component {
                         <Col xs="12" sm="6" xl="6">
                             <dl>
                                 <dt>Other details</dt>
-                                <dd>GitHub: <a className="FooterLink" href="https://github.com/Reeceeboii"
-                                target="_blank" rel="noopener noreferrer">My GitHub :)</a></dd>
+                                <dd>Personal: <a className="FooterLink" href="https://github.com/Reeceeboii"
+                                target="_blank" rel="noopener noreferrer">My GitHub</a></dd>
+                                <dd>Project: <a className="FooterLink" href="https://github.com/Reeceeboii/MercerMotors"
+                                                 target="_blank" rel="noopener noreferrer">View this site's repo</a></dd>
                             </dl>
                         </Col>
                         <Col className="Copy" xs="12" >

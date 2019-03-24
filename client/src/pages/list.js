@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Card, CardHeader, CardFooter, Col, Row, Jumbotron, Form, FormGroup, Label, Input,
-InputGroup, InputGroupAddon, Button } from "reactstrap";
+InputGroup, InputGroupAddon, Button, Alert } from "reactstrap";
 
 import '../styles/car-listing.css';
 import CardBody from "reactstrap/es/CardBody";
@@ -13,7 +13,7 @@ class List extends Component {
             make: "",
             model: "",
             release_date: "",
-            price: "0",
+            price: "",
             type: "Hatchback",
             gearbox: "Manual",
             sold: false
@@ -68,9 +68,10 @@ class List extends Component {
 
         if(validatedState.make.length === 0 || validatedState.model.length === 0 || validatedState.release_date === ""){
             // make, model and date cannot be empty
+
             return false;
         }
-        if(validatedState.price === "0"){
+        if(validatedState.price.length === 0){
             // price cannot be 0
             return false;
         }
@@ -185,7 +186,8 @@ class List extends Component {
                               </Form>
                           </CardBody>
                           <CardFooter className="h4">
-                              <Button name="submit" onClick={this.handleSubmit}>Submit</Button>
+                              <Button color="success" size="lg"
+                                      onClick={this.handleSubmit}>List your car!</Button>
                           </CardFooter>
                       </Card>
                   </div>
