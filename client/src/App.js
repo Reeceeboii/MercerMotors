@@ -6,6 +6,7 @@ import { Security, SecureRoute, ImplicitCallback } from '@okta/okta-react';
 import Navbar from './components/nav/nav';
 import Footer from './components/footer/footer';
 import Home from './pages/home';
+import Car from './pages/singleCar';
 import Cars from './pages/cars';
 import User from './pages/user';
 import List from './pages/list';
@@ -72,6 +73,12 @@ class App extends Component {
                         <Route path='/login' render={() =>(
                             <div className='App'>
                                 <Login baseUrl={OktaConfig.domain}/>
+                            </div>
+                        )}/>
+
+                        <Route path='/car' render={() =>(
+                            <div className='App'>
+                                <Car />
                             </div>
                         )}/>
 

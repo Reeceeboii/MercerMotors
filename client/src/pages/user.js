@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { withAuth } from '@okta/okta-react';
 import '../styles/user.css';
+import { Link } from 'react-router-dom';
 import {Jumbotron, Row, Col, Card, ListGroupItem, CardHeader, CardText } from 'reactstrap';
 import ListGroup from "reactstrap/es/ListGroup";
 
@@ -55,7 +56,7 @@ export default withAuth(class User extends Component {
         }else{
             purchases = this.state.purchases.map(purchase =>
                 <ListGroup>
-                    <ListGroupItem className="InfoItem" tag="a" href="#" action>
+                    <ListGroupItem className="InfoItem" tag={Link} to={`car/${purchase.car_id}`} action>
                         You bought {purchase.car_id} from {purchase.seller}
                     </ListGroupItem>
                 </ListGroup>
