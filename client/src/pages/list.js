@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Card, CardHeader, CardFooter, Col, Row, Jumbotron, Form, FormGroup, Label, Input,
-InputGroup, InputGroupAddon } from "reactstrap";
+InputGroup, InputGroupAddon, Button } from "reactstrap";
 
 import '../styles/car-listing.css';
 import CardBody from "reactstrap/es/CardBody";
@@ -9,35 +9,76 @@ class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            owner: "",
             make: "",
             model: "",
-            date: "",
-            price: 0,
-            type: "",
-            gearbox: "",
+            release_date: "",
+            price: "0",
+            type: "Hatchback",
+            gearbox: "Manual",
             sold: false
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
+    store(data) {
+        fetch('/cars/create_new', {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }, function () {
+            alert("Success!");
+        })
+    }
 
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }
 
+    validateInputs() {
+        const validatedState = {
+            make: this.state.make.trim(),
+            model: this.state.model.trim(),
+            release_date: this.state.release_date,
+            price: this.state.price,
+            type: this.state.type,
+            gearbox: this.state.gearbox,
+            sold: false
+        };
+
+        if(validatedState.make.length === 0 || validatedState.model.length === 0 || validatedState.release_date === ""){
+            // make, model and date cannot be empty
+            return false;
+        }
+        if(validatedState.price === "0"){
+            // price cannot be 0
+            return false;
+        }
+        return validatedState;
+    }
+
+    handleSubmit(){
+        let result = this.validateInputs();
+        if(result !== false){
+            this.store(result);
+        }else{
+            alert("Input errors")
+        }
+    }
+
     render() {
         // types of car that can be mapped into the dropdown for the user to select
         const types = [
-            "Hatchback",
-            "Liftback",
-            "Sedan",
-            "MPV",
-            "SUV",
-            "Crossover",
-            "Coupe",
-            "Convertible"
+            "Hatchback", "Liftback", "Sedan",
+            "MPV", "SUV", "Crossover", "Coupe", "Convertible"
         ];
+
+        // types of gearboxes that are also mapped into dropdown boxes
+        const gearboxes = ["Manual", "Automatic"];
 
         return (
           <div className='App'>
@@ -48,7 +89,7 @@ class List extends Component {
                       <Card className="EntryCard">
                           <CardHeader tag="h4">Please fill out the following details</CardHeader>
                           <CardBody>
-                              <Form>
+                              <Form onSubmit={this.handleSubmit}>
                                   <Row>
                                       <Col xs="12" sm="6" xl="6">
                                           <FormGroup>
@@ -77,10 +118,10 @@ class List extends Component {
                                               <Label className="EntryLabel" for="exampleDate">Release date</Label>
                                               <Input
                                                 type="date"
-                                                name="date"
+                                                name="release_date"
                                                 id="exampleDate"
                                                 placeholder="date placeholder"
-                                                value={this.state.date}
+                                                value={this.state.release_date}
                                                 onChange={this.handleChange} />
                                           </FormGroup>
                                       </Col>
@@ -97,6 +138,7 @@ class List extends Component {
                                           </InputGroup>
                                       </Col>
                                   </Row>
+                                  <Row>
                                       <Col xs="12" sm="6" xl="6">
                                           <Label className="EntryLabel" for="VehicleType">Type</Label>
                                           <Input name="type"
@@ -105,16 +147,30 @@ class List extends Component {
                                                  onChange={this.handleChange}>
                                               {
                                                   types.map((type) => (
-                                                      <option>{type}</option>
+                                                      <option key={type}>{type}</option>
                                                   ))
                                               }
                                           </Input>
                                       </Col>
-                                  <Row>
+                                      <Col xs="12" sm="6" xl="6">
+                                          <Label className="EntryLabel" for="GearboxType">Gearbox type</Label>
+                                          <Input name="gearbox"
+                                                 type="select"
+                                                 value={this.state.gearbox}
+                                                 onChange={this.handleChange}>
+                                              {
+                                                  gearboxes.map((gearbox) => (
+                                                      <option key={gearbox}>{gearbox}</option>
+                                                  ))
+                                              }
+                                          </Input>
+                                      </Col>
                                   </Row>
                               </Form>
                           </CardBody>
-                          <CardFooter className="h4">Footer</CardFooter>
+                          <CardFooter className="h4">
+                              <Button name="submit" onClick={this.handleSubmit}>Submit</Button>
+                          </CardFooter>
                       </Card>
                   </div>
               </Jumbotron>
