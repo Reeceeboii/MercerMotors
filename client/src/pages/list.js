@@ -22,6 +22,13 @@ class List extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
+    componentDidMount() {
+        const idToken = JSON.parse(localStorage.getItem('okta-token-storage'));
+        this.setState({
+            owner: idToken.idToken.claims.name,
+        });
+    }
+
     store(data) {
         fetch('/cars/create_new', {
             method: 'POST',
@@ -40,9 +47,18 @@ class List extends Component {
     }
 
     validateInputs() {
+        let make = this.state.make;
+        make = make.trim();
+        make = make.charAt(0).toUpperCase() + make.slice(1);
+
+        let model = this.state.model;
+        model = model.trim();
+        model = model.charAt(0).toUpperCase() + model.slice(1);
+
         const validatedState = {
-            make: this.state.make.trim(),
-            model: this.state.model.trim(),
+            owner: this.state.owner,
+            make: make,
+            model: model,
             release_date: this.state.release_date,
             price: this.state.price,
             type: this.state.type,
