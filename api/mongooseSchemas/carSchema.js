@@ -16,7 +16,7 @@ carSchema.statics.getAllForSale = function(query, cb) {
 
 // return a car by its ID
 carSchema.statics.findByID = function(id, cb) {
-    return this.find({ _id: id }, cb);
+    return this.findOne({ _id: id }, cb);
 };
 
 // return all cars for sale that are owned by a certain user (sold or not sold)

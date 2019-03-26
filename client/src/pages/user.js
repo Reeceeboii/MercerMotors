@@ -45,6 +45,7 @@ export default withAuth(class User extends Component {
             .then(purchases => this.setState({purchases}));
     };
 
+    // TODO - fix this
     getCarInfoFromPurchases(id) {
         fetch(`cars/id/${id}`)
             .then(res => res.json())

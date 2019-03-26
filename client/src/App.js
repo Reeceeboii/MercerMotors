@@ -76,7 +76,7 @@ class App extends Component {
                             </div>
                         )}/>
 
-                        <Route path='/car/:id' render={( { match } ) =>(
+                        <Route  exact={true} path='/car/:id' render={( { match } ) =>(
                             <div className='App'>
                                 <Navbar />
                                 <Car carID={match.params.id} />

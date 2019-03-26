@@ -1,0 +1,39 @@
+.MainCar {
+    margin: auto;
+    width: 90%;
+    background: rgba(255, 255, 255, .25);
+}
+
+.CarTitle {
+    font-size: 5vw;
+}
+
+.Price {
+    font-size: 5vw;
+}
+
+.Info {
+    font-size: 3vw;
+}
+
+.carousel-item > img {
+    width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+    .MainCar {
+        width: 95%;
+    }
+
+    .CarTitle {
+        font-size: 6vw;
+    }
+
+    .Info {
+        font-size: 5vw;
+    }
+
+    .Price {
+        font-size: 7vw;
+    }
+}

@@ -37,10 +37,10 @@ class List extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
-        }, function () {
-            alert("Success!");
         })
-    }
+            // TODO - redirect user (need a way to get newly created ID)
+            .then(alert("new car has been created!"));
+    };
 
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
