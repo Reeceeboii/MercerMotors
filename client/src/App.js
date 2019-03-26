@@ -76,9 +76,11 @@ class App extends Component {
                             </div>
                         )}/>
 
-                        <Route path='/car' render={() =>(
+                        <Route path='/car/:id' render={( { match } ) =>(
                             <div className='App'>
-                                <Car />
+                                <Navbar />
+                                <Car carID={match.params.id} />
+                                <Footer />
                             </div>
                         )}/>
 

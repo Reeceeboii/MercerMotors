@@ -6,11 +6,14 @@ import {Jumbotron, Row, Col, Card, ListGroupItem, CardHeader, CardText } from 'r
 import ListGroup from "reactstrap/es/ListGroup";
 
 export default withAuth(class User extends Component {
-    state = {
-        userName: '',
-        userEmail: '',
-        listings: [], //array of listings that the user has on the site
-        purchases: [] // array of purchases the user has made
+    constructor(props){
+        super(props);
+        this.state = {
+            userName: '',
+            userEmail: '',
+            listings: [], //array of listings that the user has on the site
+            purchases: [] // array of purchases the user has made
+        };
     };
 
     componentDidMount() {
@@ -32,7 +35,7 @@ export default withAuth(class User extends Component {
     loadListings() {
         fetch(`/cars/owned_by/${this.state.userName}`)
             .then(res => res.json())
-            .then(listings => this.setState({listings}));
+            .then(listings => this.setState({listings}))
     };
 
     // loads all purchases from the 'sales' collection that match the user's username
@@ -69,7 +72,7 @@ export default withAuth(class User extends Component {
         }else{
             listings = this.state.listings.map(listing =>
                 <ListGroup>
-                    <ListGroupItem className="InfoItem" tag="a" href="#" action>
+                    <ListGroupItem className="InfoItem" tag={Link} to={`car/${listing._id}`} action>
                         {listing.make} {listing.model} £{listing.price}
                     </ListGroupItem>
                 </ListGroup>

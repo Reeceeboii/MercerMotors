@@ -68,7 +68,6 @@ class List extends Component {
 
         if(validatedState.make.length === 0 || validatedState.model.length === 0 || validatedState.release_date === ""){
             // make, model and date cannot be empty
-
             return false;
         }
         if(validatedState.price.length === 0){

@@ -46,7 +46,7 @@ router.get('/owned_by/:username', (req, res, next) => {
         })
         .catch(err => {
             res.status(500).json({
-                error: "Error from ge\t cars/owned_by/:username",
+                error: "Error from get cars/owned_by/:username",
                 details: err
             })
         })
