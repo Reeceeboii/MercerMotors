@@ -1,9 +1,11 @@
 import React, {Component} from 'react';
+import { Link } from "react-router-dom";
 import { Jumbotron, Card, CardHeader, CardBody, Badge,  CardFooter, Row, Col,
     Carousel, CarouselItem, CarouselControl, CarouselIndicators, CarouselCaption,
-    Button, Modal, ModalHeader, ModalBody, ModalFooter} from "reactstrap";
+    Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from "reactstrap";
 
 import '../styles/single-car.css';
+import Breadcrumb from "reactstrap/es/Breadcrumb";
 
 const sanitise = require('mongo-sanitize');
 
@@ -55,12 +57,30 @@ class SingleCar extends Component {
         this.setState({accountName: idToken.idToken.claims.name});
     };
 
+    // PUT request, setting the sold status of the car to true
+    purchaseCar = () => {
+        alert(this.state.car._id);
+        fetch(`/cars/mark-as-sold/${this.state.car._id}`, {
+            method: "PUT",
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                "sold":"true",
+                "buyer":this.state.accountName
+            })
+        })
+            .then(alert("You have purchased this car!"))
+    };
+
     // toggle state tracking of the modal being toggled or not
     toggle() {
         this.setState(prevState => ({
             modal: !prevState.modal
         }));
     }
+
 
     formatState() {
         let car = {...this.state.car};
@@ -99,7 +119,34 @@ class SingleCar extends Component {
         const { activeIndex } = this.state;
 
         let sold;
-        if(this.state.car.sold === false && this.state.car.owner !== this.state.accountName){
+
+        // if the car has been sold as is being viewed by its owner
+        if(this.state.car.sold === true && this.state.car.owner === this.state.accountName){
+            sold = <div>
+                <Alert color="success">
+                    <h4 className="alert-heading">Congratulations!</h4>
+                    <p>
+                        Well done, this car has been sold. It was purchased for £{this.state.car.price}
+                    </p>
+                    <hr />
+                    <p className="mb-0">
+                        This page is no longer being indexed on the site's search pages
+                    </p>
+                </Alert>
+            </div>
+        // if the car hasn't been sold and is being viewed by its owner
+        }else if(this.state.car.sold === false && this.state.car.owner === this.state.accountName){
+            sold = <Alert color="info">Your car has not been sold yet</Alert>
+        }
+
+        // if the car has been sold and is being viewed by someone that isn't the owner
+        if(this.state.car.sold === true && this.state.car.owner !== this.state.accountName){
+            sold = <div>
+                <Button color="primary" size="lg" block disabled onClick={this.toggle}>Purchase this car</Button>
+                <aside>This car has already been purchased</aside>
+            </div>
+        // if the car hasn't been sold and is being viewed by someone that isn't the owner (can purchase)
+        }else if(this.state.car.sold === false && this.state.car.owner !== this.state.accountName){
             sold = <div>
                 <Button color="primary" size="lg" block onClick={this.toggle}>Purchase this car</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
@@ -110,26 +157,13 @@ class SingleCar extends Component {
                         Once purchased, this car will be visible under your account's 'My purchases' tab.
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="success" onClick={this.toggle}>Confirm purchase (£{this.state.car.price})</Button>{' '}
+                        <Button color="success" tag={Link} to ="/user" onClick={this.purchaseCar}>Confirm purchase
+                            (£{this.state.car.price})</Button>{' '}
                         <Button color="danger" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
             </div>
-        }else{
-            if(this.state.car.owner !== this.state.accountName) {
-                sold = <div>
-                    <Button color="primary" size="lg" block disabled onClick={this.toggle}>Purchase this car</Button>
-                    <aside>This car has already been purchased</aside>
-                    </div>
-
-            }else{
-                sold = <div>
-                    <Button color="primary" size="lg" block disabled onClick={this.toggle}>Purchase this car</Button>
-                    <aside>You cannot purchase a car that you have listed</aside>
-                </div>
-            }
         }
-
 
         const slides = items.map((item) => {
             return (
@@ -166,7 +200,6 @@ class SingleCar extends Component {
 
                                 <Col xs="12" sm="6" xl="6">
                                     <h1 className="Price">£{this.state.car.price}</h1>
-
                                     <h2 className="Info">Release date <Badge color="secondary">{this.state.car.release_date}</Badge></h2>
                                     <h2 className="Info">Vehicle type <Badge color="secondary">{this.state.car.type}</Badge></h2>
                                     <h2 className="Info">Gearbox <Badge color="secondary">{this.state.car.gearbox}</Badge></h2>
@@ -175,8 +208,6 @@ class SingleCar extends Component {
                         </CardBody>
                         <CardFooter>{sold}</CardFooter>
                     </Card>
-
-
                 </Jumbotron>
             </div>
         );

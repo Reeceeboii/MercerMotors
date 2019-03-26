@@ -4,6 +4,7 @@ const router = express.Router();
 const mongoose = require('mongoose');
 const sanitise = require('mongo-sanitize');
 const carSchema = require('../mongooseSchemas/carSchema');
+const saleSchema = require('../mongooseSchemas/saleSchema');
 const database = "mongodb://localhost:27017/bs-dw";
 mongoose.connect(database);
 
@@ -20,6 +21,52 @@ router.get('/search/:search', (req, res, next) => {
               details: err
           })
        });
+});
+
+// update a car's sold status to 'true' to mark it as sold. Then create a new document in the sales
+// collection with the relevant information
+router.put('/mark-as-sold/:id', (req, res, next) => {
+    const id = sanitise(req.params.id);
+    let car;
+    carSchema.findByIdAndUpdate({_id : id}, req.body.sold)
+        .exec()
+        .then( () => {
+            carSchema.findOne({_id : id})
+                .exec()
+                .then(doc => car = doc)
+                .then(
+                    fetch('sales/create-new', {
+                        method: 'POST',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify({
+                            car_id: car._id,
+                            buyer: req.body.buyer,
+                            seller: car.owner
+                        })
+                    })
+                        .then(doc => {
+                            res.status(200).json(doc);
+                        })
+                        .catch(err => {
+                            res.status(500).json({
+                                error: "Error creating new sale",
+                                details: err
+                            })
+                        })
+                );
+        })
+        .then(doc => {
+            res.status(200).json(doc);
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: "Error from POST cars/mark-as-sold/:id",
+                details: err
+            })
+        })
 });
 
 router.get('/id/:id', (req, res, next) => {
@@ -83,11 +130,9 @@ router.post('/create_new', (req, res, next) => {
         .then(result => {
             res.status(201).json({
                 message: "Post request to cars/create_new endpoint was successful",
-                createdCar: result
             })
         })
         .catch(err => {
-            console.log(err);
             res.status(500).json({
                 error: "Error from post route of car",
                 details: err
