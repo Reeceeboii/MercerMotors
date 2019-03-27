@@ -5,7 +5,6 @@ import { Jumbotron, Card, CardHeader, CardBody, Badge,  CardFooter, Row, Col,
     Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert } from "reactstrap";
 
 import '../styles/single-car.css';
-import Breadcrumb from "reactstrap/es/Breadcrumb";
 
 const sanitise = require('mongo-sanitize');
 
@@ -59,7 +58,6 @@ class SingleCar extends Component {
 
     // PUT request, setting the sold status of the car to true
     purchaseCar = () => {
-        alert(this.state.car._id);
         fetch(`/cars/mark-as-sold/${this.state.car._id}`, {
             method: "PUT",
             headers: {
@@ -67,11 +65,9 @@ class SingleCar extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                "sold":"true",
                 "buyer":this.state.accountName
             })
         })
-            .then(alert("You have purchased this car!"))
     };
 
     // toggle state tracking of the modal being toggled or not
@@ -154,7 +150,8 @@ class SingleCar extends Component {
                         Are you sure you wish to purchase this {this.state.car.make} {this.state.car.model}?
                     </ModalHeader>
                     <ModalBody>
-                        Once purchased, this car will be visible under your account's 'My purchases' tab.
+                        After a few seconds, this car will be visible under your account's 'My purchases' tab. If you don't see it,
+                        give the page a refresh.
                     </ModalBody>
                     <ModalFooter>
                         <Button color="success" tag={Link} to ="/user" onClick={this.purchaseCar}>Confirm purchase

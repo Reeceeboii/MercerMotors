@@ -23,47 +23,43 @@ router.get('/search/:search', (req, res, next) => {
        });
 });
 
-// update a car's sold status to 'true' to mark it as sold. Then create a new document in the sales
-// collection with the relevant information
-router.put('/mark-as-sold/:id', (req, res, next) => {
-    const id = sanitise(req.params.id);
+function createNewSale (carID, buyer){
     let car;
-    carSchema.findByIdAndUpdate({_id : id}, req.body.sold)
-        .exec()
+    carSchema.findById(carID)
+       .exec()
+       .then(doc => {
+           car = doc;
+       })
         .then( () => {
-            carSchema.findOne({_id : id})
-                .exec()
-                .then(doc => car = doc)
-                .then(
-                    fetch('sales/create-new', {
-                        method: 'POST',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        body: JSON.stringify({
-                            car_id: car._id,
-                            buyer: req.body.buyer,
-                            seller: car.owner
-                        })
-                    })
-                        .then(doc => {
-                            res.status(200).json(doc);
-                        })
-                        .catch(err => {
-                            res.status(500).json({
-                                error: "Error creating new sale",
-                                details: err
-                            })
-                        })
-                );
-        })
-        .then(doc => {
-            res.status(200).json(doc);
+            const newSale = new saleSchema({
+                _id: new mongoose.Types.ObjectId(),
+                car_id: car._id,
+                buyer: buyer,
+                seller: car.owner,
+                sale_total: car.price
+            });
+            newSale
+            .save()
         })
         .catch(err => {
+            console.log(err);
+        })
+}
+
+// update a car's sold status to 'true' to mark it as sold. This request is bound to a callback function that
+// creates a new document in the sales collection with the relevant information
+router.put('/mark-as-sold/:id', (req, res, next) => {
+    carSchema.findOneAndUpdate({_id:sanitise(req.params.id)}, {sold:true})
+        .exec()
+        .then(createNewSale(sanitise(req.params.id), req.body.buyer))
+        .then( (doc) =>
+            res.status(200).json({
+                message:"Sale marking successful!",
+                details: doc
+            }))
+        .catch(err => {
             res.status(500).json({
-                error: "Error from POST cars/mark-as-sold/:id",
+                error: "Error from PUT cars/mark-as-sold/:id",
                 details: err
             })
         })
@@ -127,7 +123,7 @@ router.post('/create_new', (req, res, next) => {
     });
     newCar
         .save()
-        .then(result => {
+        .then( () => {
             res.status(201).json({
                 message: "Post request to cars/create_new endpoint was successful",
             })
