@@ -26,6 +26,7 @@
     "cloudinary": "^1.14.0",
     "concurrently": "^3.5.1",
     "express": "^4.16.2",
+    "filepond": "^4.3.5",
     "mongo-sanitize": "^1.0.1",
     "mongodb": "^3.1.13",
     "mongoose": "^5.4.15",
@@ -33,6 +34,7 @@
     "multer-storage-cloudinary": "^2.2.1",
     "react": "^16.8.3",
     "react-dom": "^16.8.3",
+    "react-filepond": "^7.0.1",
     "react-router-dom": "^4.3.1",
     "reactstrap": "^7.1.0"
   }

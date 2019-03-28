@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
 import { Card, CardHeader, CardFooter, Col, Row, Jumbotron, Form, FormGroup, Label, Input,
-InputGroup, InputGroupAddon, Button, Alert } from "reactstrap";
+InputGroup, InputGroupAddon, Button, FormText } from "reactstrap";
+
+import { FilePond } from 'react-filepond';
+import 'filepond/dist/filepond.min.css';
 
 import '../styles/car-listing.css';
 import CardBody from "reactstrap/es/CardBody";
@@ -16,7 +19,8 @@ class List extends Component {
             price: "",
             type: "Hatchback",
             gearbox: "Manual",
-            sold: false
+            sold: false,
+            file: null
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -42,6 +46,10 @@ class List extends Component {
             .then(alert("new car has been created!"));
     };
 
+    handleInit() {
+        console.log('FilePond instance has initialised', this.pond);
+    }
+
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
     }
@@ -63,7 +71,8 @@ class List extends Component {
             price: this.state.price,
             type: this.state.type,
             gearbox: this.state.gearbox,
-            sold: false
+            sold: false,
+            files: this.state.files
         };
 
         if(validatedState.make.length === 0 || validatedState.model.length === 0 || validatedState.release_date === ""){
@@ -74,6 +83,11 @@ class List extends Component {
             // price cannot be 0
             return false;
         }
+        if(validatedState.files.length === null){
+            // the user must upload at least one image to their listing
+            return false;
+        }
+
         return validatedState;
     }
 
@@ -173,13 +187,26 @@ class List extends Component {
                                           <Input name="gearbox"
                                                  type="select"
                                                  value={this.state.gearbox}
-                                                 onChange={this.handleChange}>
+                                                 onChange={this.handleChange}
+                                                 oninit={() => this.handleInit()}>
+
                                               {
                                                   gearboxes.map((gearbox) => (
                                                       <option key={gearbox}>{gearbox}</option>
                                                   ))
                                               }
                                           </Input>
+                                      </Col>
+                                  </Row>
+                                  <Row>
+                                      <Col className="FileUpload" xs="12" sm="12" xl="12">
+                                          <FormGroup>
+                                              <Label for="exampleFile">File</Label>
+                                              <Input type="file" name="file" id="exampleFile" />
+                                              <FormText color="muted">
+                                                  Please upload a picture of the car here
+                                              </FormText>
+                                          </FormGroup>
                                       </Col>
                                   </Row>
                               </Form>

@@ -23,6 +23,13 @@ cloudinary.config({
     api_secret: process.env.API_SECRET || api_keys.cloudinary.api_secret
 });
 
+const storage = cloudinaryStorage({
+    cloudinary: cloudinary,
+    folder: "cars",
+    allowedFormats: ["jpg", "png"],
+    transformation: [{ width: 500, height: 500, crop: "limit" }]
+});
+const parser = multer({ storage: storage });
 
 
 
@@ -126,7 +133,15 @@ router.get('/recently_sold', (req, res, next) => {
        })
 });
 
-router.post('/create_new', (req, res, next) => {
+function readImages(arrayImage){
+    arrayImage.forEach( (image) => {
+        console.log(image);
+    })
+}
+
+router.post('/create_new', parser.array("images", 5) ,(req, res, next) => {
+    readImages(req.body.files);
+    /*
     const newCar = new carSchema({
         _id: new mongoose.Types.ObjectId(),
         owner: req.body.owner,
@@ -151,6 +166,12 @@ router.post('/create_new', (req, res, next) => {
                 details: err
             });
         })
+
+     */
 });
+
+
+
+
 
 module.exports = router;
