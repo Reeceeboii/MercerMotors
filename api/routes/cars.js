@@ -5,8 +5,25 @@ const mongoose = require('mongoose');
 const sanitise = require('mongo-sanitize');
 const carSchema = require('../mongooseSchemas/carSchema');
 const saleSchema = require('../mongooseSchemas/saleSchema');
+
+const multer = require("multer");
+const cloudinary = require("cloudinary");
+const cloudinaryStorage = require("multer-storage-cloudinary");
+
+const api_keys = require('../../client/src/api_keys');
+
 const database = "mongodb://localhost:27017/bs-dw";
-mongoose.connect(database);
+mongoose.connect(database).then( () => console.log("Connected to database via mongoose"));
+
+
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME || api_keys.cloudinary.cloud_name,
+    api_key: process.env.API_KEY || api_keys.cloudinary.api_key,
+    api_secret: process.env.API_SECRET || api_keys.cloudinary.api_secret
+});
+
+
 
 
 router.get('/search/:search', (req, res, next) => {
