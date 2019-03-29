@@ -1,17 +1,15 @@
 import React, {Component} from 'react';
 import { Card, CardHeader, CardFooter, Col, Row, Jumbotron, Form, FormGroup, Label, Input,
-InputGroup, InputGroupAddon, Button, FormText } from "reactstrap";
-
-import { FilePond } from 'react-filepond';
-import 'filepond/dist/filepond.min.css';
+InputGroup, InputGroupAddon, Button, CardBody, UncontrolledAlert} from "reactstrap";
 
 import '../styles/car-listing.css';
-import CardBody from "reactstrap/es/CardBody";
 
 class List extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            formValidationErrors: [],
+
             owner: "",
             make: "",
             model: "",
@@ -46,6 +44,19 @@ class List extends Component {
             .then(alert("new car has been created!"));
     };
 
+    handleFileUpload = uploadEvent => {
+        // reset currently uploaded file to null, and replace with file from argument event
+
+        // extract file details
+        const fileDetails = uploadEvent.target.files[0];
+
+        this.setState( { file: null }, () =>
+            this.setState({ file: fileDetails }, () =>
+                console.log(this.state.file)
+            )
+        )
+    };
+
     handleInit() {
         console.log('FilePond instance has initialised', this.pond);
     }
@@ -72,23 +83,34 @@ class List extends Component {
             type: this.state.type,
             gearbox: this.state.gearbox,
             sold: false,
-            files: this.state.files
+            file: this.state.file
         };
 
-        if(validatedState.make.length === 0 || validatedState.model.length === 0 || validatedState.release_date === ""){
-            // make, model and date cannot be empty
-            return false;
+        let validationAlerts = [];
+
+        if(validatedState.make.length === 0){
+            validationAlerts.push({alert:"Car make cannot be left empty"});
         }
-        if(validatedState.price.length === 0){
-            // price cannot be 0
-            return false;
+        if(validatedState.model.length === 0){
+            validationAlerts.push({alert:"Car model cannot be left empty"});
         }
-        if(validatedState.files.length === null){
-            // the user must upload at least one image to their listing
-            return false;
+        if(validatedState.release_date === ""){
+            validationAlerts.push({alert:"Please enter a date"});
+        }
+        if(validatedState.price.length === 0 || validatedState.price === 0){
+            validationAlerts.push({alert:"Price must be filled out and be more than 0"})
+        }
+        if(validatedState.file === null || validatedState.file.type !== "image/jpg" || validatedState.file.type !== "image/png"){
+            validationAlerts.push({alert:"You must upload at least one image of type .jpg or .png"})
         }
 
-        return validatedState;
+
+        if(validationAlerts.length > 0){
+            this.setState({formValidationErrors:validationAlerts});
+                return false;
+        }else{
+            return validatedState;
+        }
     }
 
     handleSubmit(){
@@ -96,7 +118,7 @@ class List extends Component {
         if(result !== false){
             this.store(result);
         }else{
-            alert("Input errors")
+            console.log(this.state.formValidationErrors)
         }
     }
 
@@ -200,16 +222,20 @@ class List extends Component {
                                   </Row>
                                   <Row>
                                       <Col className="FileUpload" xs="12" sm="12" xl="12">
-                                          <FormGroup>
-                                              <Label for="exampleFile">File</Label>
-                                              <Input type="file" name="file" id="exampleFile" />
-                                              <FormText color="muted">
-                                                  Please upload a picture of the car here
-                                              </FormText>
-                                          </FormGroup>
+                                          <Label className="EntryLabel" for="FileUpload">
+                                              And finally, upload a picture of your car (.png and .jpg files only)
+                                          </Label>
+                                      </Col>
+                                      <Col className="FileUpload" xs="12" sm="12" xl="12">
+                                      <input type="file" onChange={this.handleFileUpload}/>
                                       </Col>
                                   </Row>
                               </Form>
+                              {
+                                  this.state.formValidationErrors.map((error) => (
+                                      <UncontrolledAlert  color="danger">{error.alert}</UncontrolledAlert >
+                                  ))
+                              }
                           </CardBody>
                           <CardFooter className="h4">
                               <Button color="success" size="lg"
