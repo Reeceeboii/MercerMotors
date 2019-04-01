@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Button, Col, Container, Input, InputGroup, InputGroupAddon, Jumbotron } from "reactstrap";
+import { Link } from "react-router-dom";
 import { withAuth } from '@okta/okta-react';
 import Row from "reactstrap/es/Row";
 
@@ -13,6 +14,7 @@ export default withAuth(class Home extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            search: "",
             authenticated: null,
             recent_sales: []
         };
@@ -23,6 +25,11 @@ export default withAuth(class Home extends Component {
         if (authenticated !== this.state.authenticated) {
             this.setState({ authenticated });
         }
+    };
+
+    // changes to the search box are handled here
+    handleChange = (event) => {
+        this.setState({search: event.target.value});
     };
 
     async componentDidMount () {
@@ -53,7 +60,8 @@ export default withAuth(class Home extends Component {
                                 <InputGroup>
                                     <Input value={this.state.search} onChange={this.handleChange}/>
                                     <InputGroupAddon addonType="append">
-                                        <Button onClick={this.handleSubmit} color="primary" type="submit" value="Submit">Search!</Button>
+                                        <Button color="primary"
+                                                tag={Link} to={`/cars/${this.state.search}`}>Search!</Button>
                                     </InputGroupAddon>
                                 </InputGroup>
                             </form>

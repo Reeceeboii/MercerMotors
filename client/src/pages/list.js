@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
+import FormData from 'form-data';
 import { Card, CardHeader, CardFooter, Col, Row, Jumbotron, Form, FormGroup, Label, Input,
-InputGroup, InputGroupAddon, Button, CardBody, UncontrolledAlert} from "reactstrap";
+InputGroup, InputGroupAddon, Button, CardBody, Alert} from "reactstrap";
 
 import '../styles/car-listing.css';
 
@@ -34,32 +35,18 @@ class List extends Component {
     store(data) {
         fetch('/cars/create_new', {
             method: 'POST',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
+            headers: {'Content-type':'application/json'},
+            body: data,
         })
-            // TODO - redirect user (need a way to get newly created ID)
-            .then(alert("new car has been created!"));
     };
 
     handleFileUpload = uploadEvent => {
-        // reset currently uploaded file to null, and replace with file from argument event
-
         // extract file details
         const fileDetails = uploadEvent.target.files[0];
-
         this.setState( { file: null }, () =>
-            this.setState({ file: fileDetails }, () =>
-                console.log(this.state.file)
-            )
+            this.setState({ file: fileDetails })
         )
     };
-
-    handleInit() {
-        console.log('FilePond instance has initialised', this.pond);
-    }
 
     handleChange(event) {
         this.setState({[event.target.name]: event.target.value});
@@ -97,14 +84,24 @@ class List extends Component {
         if(validatedState.release_date === ""){
             validationAlerts.push({alert:"Please enter a date"});
         }
-        if(validatedState.price.length === 0 || validatedState.price === 0){
+        if(validatedState.price.length === 0 || validatedState.price === "0"){
             validationAlerts.push({alert:"Price must be filled out and be more than 0"})
         }
-        if(validatedState.file === null || validatedState.file.type !== "image/jpg" || validatedState.file.type !== "image/png"){
-            validationAlerts.push({alert:"You must upload at least one image of type .jpg or .png"})
+
+        if(validatedState.file !== null) {
+            if (validatedState.file.type !== "image/jpeg" && validatedState.file.type !== "image/png") {
+                validationAlerts.push({alert: "Your uploaded image must be .png or .jpg"})
+            }
+        }else if(validatedState.file === null){
+            validationAlerts.push({alert: "Please upload an image"})
         }
 
 
+        /*
+            return either the validated component state or an array
+            of alert statuses that can be mapped back into the form
+            to display to the user
+         */
         if(validationAlerts.length > 0){
             this.setState({formValidationErrors:validationAlerts});
                 return false;
@@ -117,8 +114,6 @@ class List extends Component {
         let result = this.validateInputs();
         if(result !== false){
             this.store(result);
-        }else{
-            console.log(this.state.formValidationErrors)
         }
     }
 
@@ -141,7 +136,7 @@ class List extends Component {
                       <Card className="EntryCard">
                           <CardHeader tag="h4">Please fill out the following details</CardHeader>
                           <CardBody>
-                              <Form onSubmit={this.handleSubmit}>
+                              <Form onSubmit={this.handleSubmit} enctype="multipart/form-data">
                                   <Row>
                                       <Col xs="12" sm="6" xl="6">
                                           <FormGroup>
@@ -211,7 +206,6 @@ class List extends Component {
                                                  value={this.state.gearbox}
                                                  onChange={this.handleChange}
                                                  oninit={() => this.handleInit()}>
-
                                               {
                                                   gearboxes.map((gearbox) => (
                                                       <option key={gearbox}>{gearbox}</option>
@@ -227,13 +221,13 @@ class List extends Component {
                                           </Label>
                                       </Col>
                                       <Col className="FileUpload" xs="12" sm="12" xl="12">
-                                      <input type="file" onChange={this.handleFileUpload}/>
+                                      <input type="file" id="carImage" onChange={this.handleFileUpload}/>
                                       </Col>
                                   </Row>
                               </Form>
                               {
                                   this.state.formValidationErrors.map((error) => (
-                                      <UncontrolledAlert  color="danger">{error.alert}</UncontrolledAlert >
+                                      <Alert color="danger">{error.alert}</Alert >
                                   ))
                               }
                           </CardBody>

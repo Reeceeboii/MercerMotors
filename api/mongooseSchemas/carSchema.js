@@ -6,11 +6,12 @@ const carSchema = new Schema({
     model: String, release_date: Date, price: Number,
     type: String, gearbox: String, sold: Boolean
 });
+carSchema.index({make: 'text', model: 'text', type: 'text', gearbox: 'text'});
 
 
 // returns all cars that haven't already been bought, according to a user's search query
 carSchema.statics.getAllForSale = function(query, cb) {
-    return this.find({ sold: false }, cb);
+    return this.find({ $text: {$search: query}, sold: false }, cb);
 };
 
 

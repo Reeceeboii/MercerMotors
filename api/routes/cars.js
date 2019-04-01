@@ -6,30 +6,11 @@ const sanitise = require('mongo-sanitize');
 const carSchema = require('../mongooseSchemas/carSchema');
 const saleSchema = require('../mongooseSchemas/saleSchema');
 
-const multer = require("multer");
-const cloudinary = require("cloudinary");
-const cloudinaryStorage = require("multer-storage-cloudinary");
+const path = require('path');
+const crypto = require('crypto');
 
-const api_keys = require('../../client/src/api_keys');
-
-const database = "mongodb://localhost:27017/bs-dw";
-mongoose.connect(database).then( () => console.log("Connected to database via mongoose"));
-
-
-
-cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME || api_keys.cloudinary.cloud_name,
-    api_key: process.env.API_KEY || api_keys.cloudinary.api_key,
-    api_secret: process.env.API_SECRET || api_keys.cloudinary.api_secret
-});
-
-const storage = cloudinaryStorage({
-    cloudinary: cloudinary,
-    folder: "cars",
-    allowedFormats: ["jpg", "png"],
-    transformation: [{ width: 500, height: 500, crop: "limit" }]
-});
-const parser = multer({ storage: storage });
+const databaseURI = "mongodb://localhost:27017/bs-dw";
+mongoose.createConnection(databaseURI, { useNewUrlParser: true });
 
 
 
@@ -133,15 +114,8 @@ router.get('/recently_sold', (req, res, next) => {
        })
 });
 
-function readImages(arrayImage){
-    arrayImage.forEach( (image) => {
-        console.log(image);
-    })
-}
 
-router.post('/create_new', parser.array("images", 5) ,(req, res, next) => {
-    readImages(req.body.files);
-    /*
+router.post('/create_new', (req, res, next) => {
     const newCar = new carSchema({
         _id: new mongoose.Types.ObjectId(),
         owner: req.body.owner,
@@ -166,8 +140,6 @@ router.post('/create_new', parser.array("images", 5) ,(req, res, next) => {
                 details: err
             });
         })
-
-     */
 });
 
 

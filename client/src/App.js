@@ -55,10 +55,10 @@ class App extends Component {
                             </div>
                         )}/>
 
-                        <Route exact={true} path='/cars' render={() => (
+                        <Route exact={true} path='/cars/:searchQuery' render={( { match } ) => (
                             <div className='App'>
                                 <Navbar />
-                                <Cars />
+                                <Cars query={match.params.searchQuery}/>
                                 <Footer />
                             </div>
                         )}/>

@@ -1,22 +1,13 @@
-.CarResults {
-  list-style: none;
-  width: 50%;
-  margin: auto;
-}
-
-.CardHeader {
-  text-align: center;
-  font-weight: bold;
-  font-size: 2rem;
+.CarListGroup {
+  margin-top: 20px;
 }
 
 .CarList {
   margin: auto;
+  background: rgba(255, 255, 255, .25);
   width: 90%;
 }
 
-.CarCardImage {
-  width: 50%;
-  height: 50%;
-  float: left;
+.CarCard {
+  background: rgba(255, 255, 255, .25);
 }
