@@ -56,7 +56,7 @@ export default withAuth(class Home extends Component {
                             <h1 className="display-3 main">Welcome</h1>
                             <p className="lead">The absolute number 1 place on the internet for buying and selling second
                             hand cars. Find your dream car today!</p>
-                            <form>
+                            <form className="HomeSearch">
                                 <InputGroup>
                                     <Input value={this.state.search} onChange={this.handleChange}/>
                                     <InputGroupAddon addonType="append">

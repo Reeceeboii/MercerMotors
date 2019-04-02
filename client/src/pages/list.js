@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import FormData from 'form-data';
 import { Card, CardHeader, CardFooter, Col, Row, Jumbotron, Form, FormGroup, Label, Input,
 InputGroup, InputGroupAddon, Button, CardBody, Alert} from "reactstrap";
 
@@ -18,8 +17,7 @@ class List extends Component {
             price: "",
             type: "Hatchback",
             gearbox: "Manual",
-            sold: false,
-            file: null
+            sold: false
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -38,14 +36,6 @@ class List extends Component {
             headers: {'Content-type':'application/json'},
             body: data,
         })
-    };
-
-    handleFileUpload = uploadEvent => {
-        // extract file details
-        const fileDetails = uploadEvent.target.files[0];
-        this.setState( { file: null }, () =>
-            this.setState({ file: fileDetails })
-        )
     };
 
     handleChange(event) {
@@ -70,7 +60,6 @@ class List extends Component {
             type: this.state.type,
             gearbox: this.state.gearbox,
             sold: false,
-            file: this.state.file
         };
 
         let validationAlerts = [];
@@ -88,13 +77,6 @@ class List extends Component {
             validationAlerts.push({alert:"Price must be filled out and be more than 0"})
         }
 
-        if(validatedState.file !== null) {
-            if (validatedState.file.type !== "image/jpeg" && validatedState.file.type !== "image/png") {
-                validationAlerts.push({alert: "Your uploaded image must be .png or .jpg"})
-            }
-        }else if(validatedState.file === null){
-            validationAlerts.push({alert: "Please upload an image"})
-        }
 
 
         /*
@@ -212,16 +194,6 @@ class List extends Component {
                                                   ))
                                               }
                                           </Input>
-                                      </Col>
-                                  </Row>
-                                  <Row>
-                                      <Col className="FileUpload" xs="12" sm="12" xl="12">
-                                          <Label className="EntryLabel" for="FileUpload">
-                                              And finally, upload a picture of your car (.png and .jpg files only)
-                                          </Label>
-                                      </Col>
-                                      <Col className="FileUpload" xs="12" sm="12" xl="12">
-                                      <input type="file" id="carImage" onChange={this.handleFileUpload}/>
                                       </Col>
                                   </Row>
                               </Form>

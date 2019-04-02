@@ -7,6 +7,11 @@ body {
     background-repeat: no-repeat;
 }
 
+.HomeSearch {
+    margin: auto;
+    width: 75%;
+}
+
 .MainJumboTop {
     border-radius: 0 0 25px 25px;
     background-color: rgba(250, 250, 250, .20);
@@ -45,4 +50,11 @@ body {
 
 .OfferImage {
     width: 50%;
+}
+
+@media only screen and (max-width: 600px) {
+    .HomeSearch {
+        width: 90%;
+    }
+
 }

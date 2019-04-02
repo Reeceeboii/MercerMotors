@@ -6,13 +6,11 @@ const sanitise = require('mongo-sanitize');
 const carSchema = require('../mongooseSchemas/carSchema');
 const saleSchema = require('../mongooseSchemas/saleSchema');
 
-const path = require('path');
-const crypto = require('crypto');
+const apiKeys = require('../../client/src/api_keys');
 
-const databaseURI = "mongodb://localhost:27017/bs-dw";
-mongoose.createConnection(databaseURI, { useNewUrlParser: true });
-
-
+const database = "mongodb://localhost:27017/bs-dw";
+//const database = `mongodb+srv://Reece:${apiKeys.mongo.password}@businesssystemscluster-3l9va.mongodb.net/test?retryWrites=true`;
+mongoose.connect(database);
 
 router.get('/search/:search', (req, res, next) => {
     carSchema.getAllForSale(sanitise(req.params.search))
