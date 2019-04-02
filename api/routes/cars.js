@@ -12,6 +12,8 @@ const apiKeys = require('../../client/src/api_keys');
 const database = `mongodb+srv://bs-dw-access:${apiKeys.mongo.password}@businesssystemscluster-3l9va.mongodb.net/test?authSource=admin`;
 mongoose.connect(database).then( () => console.log("connected"));
 
+console.log(process.env.MONGO);
+
 router.get('/search/:search', (req, res, next) => {
     carSchema.getAllForSale(sanitise(req.params.search))
        .exec()

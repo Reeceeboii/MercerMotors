@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import {Link, Redirect} from 'react-router-dom';
+import { Button } from 'reactstrap';
 import SignInWidget from './SignInWidget';
 import { withAuth } from '@okta/okta-react';
 
@@ -44,7 +45,7 @@ export default withAuth(class Login extends Component {
                 <SignInWidget
                     baseUrl={this.props.baseUrl}
                     onSuccess={this.onSuccess}/>
-                <Link to="/">Return home</Link>
+                <Button className="ReturnButton" color="info" tag={Link} to={"/"}>Return home</Button>{' '}
             </div>
     }
 });

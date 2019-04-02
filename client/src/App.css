@@ -52,6 +52,12 @@ body {
     width: 50%;
 }
 
+.ReturnButton {
+    margin: auto;
+    position: absolute;
+    width: 25%;
+}
+
 @media only screen and (max-width: 600px) {
     .HomeSearch {
         width: 90%;

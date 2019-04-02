@@ -61,7 +61,7 @@ export default withAuth(class User extends Component {
             purchases = this.state.purchases.map(purchase =>
                 <ListGroup>
                     <ListGroupItem className="InfoItem" tag={Link} to={`car/${purchase.car_id}`} action>
-                        You bought {purchase.car_id} from {purchase.seller}
+                        You purchased a car from {purchase.seller} for £{purchase.sale_total}
                     </ListGroupItem>
                 </ListGroup>
             );

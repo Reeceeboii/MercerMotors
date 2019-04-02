@@ -1,6 +1,9 @@
 const http = require('http');
 const middleware = require('./middlewareRouter');
 
+require('dotenv').config();
+
+
 // hardcoded port for dev purposes
 // when the app is being hosted this would be different
 const port = process.env.PORT || 5000;
