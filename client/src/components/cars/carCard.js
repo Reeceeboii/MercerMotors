@@ -16,8 +16,8 @@ class CarCard extends Component {
                                 {this.props.make} {this.props.model}
                             </CardHeader>
                             <CardBody>
-                                <CardTitle>£{this.props.price}</CardTitle>
-                                <CardText>{this.props.release_date}</CardText>
+                                <CardTitle className="lead"><h3>£{this.props.price}</h3></CardTitle>
+                                <CardText className="lead"><h3>{this.props.release_date}</h3></CardText>
                             </CardBody>
                             <CardFooter className="text-muted">
                                 Uploaded by {this.props.owner}

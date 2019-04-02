@@ -28,7 +28,6 @@ export default withAuth(class User extends Component {
     prepareState() {
         this.loadListings();
         this.loadPurchases();
-        this.getCarInfoFromPurchases();
     }
 
     // loads all the cars that the user has listed on the site
@@ -36,22 +35,34 @@ export default withAuth(class User extends Component {
         fetch(`/cars/owned_by/${this.state.userName}`)
             .then(res => res.json())
             .then(listings => this.setState({listings}))
+            .then(this.formatListings)
     };
+
+    formatListings = () => {
+        let currentCar;
+        for(let car in this.state.listings){
+            currentCar = this.state.listings[car];
+            currentCar.price = currentCar.price.toLocaleString();
+        }
+        this.setState({car: currentCar});
+    }
+
+    formatPurchases = () => {
+        let currentPurchase;
+        for(let purchase in this.state.purchases){
+            currentPurchase = this.state.purchases[purchase];
+            currentPurchase.sale_total = currentPurchase.sale_total.toLocaleString();
+        }
+        this.setState({purchase: currentPurchase});
+    }
 
     // loads all purchases from the 'sales' collection that match the user's username
     loadPurchases() {
         fetch(`/sales/${this.state.userName}`)
             .then(res => res.json())
-            .then(purchases => this.setState({purchases}));
+            .then(purchases => this.setState({purchases}))
+            .then(this.formatPurchases)
     };
-
-    // TODO - fix this
-    getCarInfoFromPurchases(id) {
-        fetch(`cars/id/${id}`)
-            .then(res => res.json())
-            .then(cars => this.setState({cars}));
-    }
-
 
     render() {
         let purchases;

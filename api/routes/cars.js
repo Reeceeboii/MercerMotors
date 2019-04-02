@@ -130,9 +130,7 @@ router.post('/create_new', (req, res, next) => {
     newCar
         .save()
         .then( () => {
-            res.status(201).json({
-                message: "Post request to cars/create_new endpoint was successful",
-            })
+            res.redirect(201, 'http://localhost:3000/user')
         })
         .catch(err => {
             res.status(500).json({

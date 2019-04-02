@@ -1,10 +1,9 @@
 .RecentlySoldCar {
-    padding-bottom: 20px;
     background-color: rgba(0, 0, 0, 0);
 }
 
 .RecentlySoldCarCard {
-    width: 80%;
+    width: 85%;
     margin: auto;
     background-color: rgba(256, 256, 256, .1);
 }

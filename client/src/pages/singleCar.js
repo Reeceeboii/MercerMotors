@@ -16,6 +16,7 @@ class SingleCar extends Component {
             car: [],
             modal: false
         };
+        this.toggle = this.toggle.bind(this);
     };
 
     componentDidMount() {
@@ -43,6 +44,12 @@ class SingleCar extends Component {
         })
     };
 
+    // toggle state tracking of the modal being toggled or not
+    toggle() {
+        this.setState(prevState => ({
+            modal: !prevState.modal
+        }));
+    }
 
     formatState() {
         let car = {...this.state.car};

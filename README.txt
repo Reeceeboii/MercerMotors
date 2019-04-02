@@ -17,3 +17,4 @@ Database reads - existing cars read from database - ./api/routes/cars.js
                - existing sales read from database - ./api/routes/sales.js
 
 Security - user authentication and protected routes can be seen at ./client/src/App.js
+         - escaping user input strings can be seen at ./api/routes/cars.js

@@ -33,7 +33,10 @@ class List extends Component {
     store(data) {
         fetch('/cars/create_new', {
             method: 'POST',
-            headers: {'Content-type':'application/json'},
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
             body: JSON.stringify(data)
         })
     };

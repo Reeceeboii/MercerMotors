@@ -32,8 +32,8 @@ class Cars extends Component {
                                 id={car._id}
                                 make={car.make}
                                 model={car.model}
-                                release_date={car.release_date}
-                                price={car.price}
+                                release_date={car.release_date.split("T")[0]}
+                                price={car.price.toLocaleString()}
                                 owner={car.owner}
                             />
                             </Col>
