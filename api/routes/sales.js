@@ -6,10 +6,10 @@ const saleSchema = require('../mongooseSchemas/saleSchema');
 
 const apiKeys = require('../../client/src/api_keys');
 
+//const database = "mongodb://localhost:27017/bs-dw";
+const database = `mongodb+srv://bs-dw-access:${apiKeys.mongo.password}@businesssystemscluster-3l9va.mongodb.net/test?authSource=admin`;
+mongoose.connect(database).then( () => console.log("connected"));
 
-//const database = `mongodb+srv://Reece:${apiKeys.mongo.password}@businesssystemscluster-3l9va.mongodb.net/test?retryWrites=true`;
-const database = "mongodb://localhost:27017/bs-dw";
-mongoose.connect(database);
 // gets all sales for a particular username
 router.get('/:username', (req, res, next) => {
     saleSchema.findUserSales(req.params.username)

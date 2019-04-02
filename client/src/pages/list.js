@@ -34,7 +34,7 @@ class List extends Component {
         fetch('/cars/create_new', {
             method: 'POST',
             headers: {'Content-type':'application/json'},
-            body: data,
+            body: JSON.stringify(data)
         })
     };
 

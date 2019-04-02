@@ -77,7 +77,7 @@ class App extends Component {
                             </div>
                         )}/>
 
-                        <Route  exact={true} path='/car/:id' render={( { match } ) =>(
+                        <SecureRoute  exact={true} path='/car/:id' render={( { match } ) =>(
                             <div className='App'>
                                 <Navbar />
                                 <Car carID={match.params.id} />
