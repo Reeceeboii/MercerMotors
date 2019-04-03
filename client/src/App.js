@@ -14,15 +14,14 @@ import Login from './components/auth/Login';
 
 import './App.css';
 
-import apiKeys from './api_keys';
 
 // okta configuration information
 // this is linked to my application on Okta.com
 const OktaConfig = {
-    domain: apiKeys.okta.domain,
-    issuer: apiKeys.okta.issuer,
-    redirect_uri: window.location.origin + apiKeys.okta.redirect_uri,
-    client_id: apiKeys.okta.client_id
+    domain: process.env.okta-domain,
+    issuer: process.env.okta-issuer,
+    redirect_uri: window.location.origin + process.env.okta-redirect-uri,
+    client_id: process.env.okta-client-id
 };
 
 // pushes users to the login page if their authentication is required
