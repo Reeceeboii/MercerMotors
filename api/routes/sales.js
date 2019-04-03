@@ -6,7 +6,7 @@ const saleSchema = require('../mongooseSchemas/saleSchema');
 
 
 //const database = "mongodb://localhost:27017/bs-dw";
-const database = `mongodb+srv://bs-dw-access:${process.env.mongo-password}@businesssystemscluster-3l9va.mongodb.net/test?authSource=admin`;
+const database = `mongodb+srv://bs-dw-access:${process.env.mongoPassword}@businesssystemscluster-3l9va.mongodb.net/test?authSource=admin`;
 mongoose.connect(database).then( () => console.log("connected"));
 
 // gets all sales for a particular username
