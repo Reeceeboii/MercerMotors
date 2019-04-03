@@ -7,7 +7,7 @@ class RecentlySoldCar extends Component {
     render() {
         return (
             <Card className="RecentlySoldCarCard">
-                <CardHeader className="RecentlySoldCar" tag="h3">SOLD FOR £{this.props.price}</CardHeader>
+                <CardHeader className="RecentlySoldCar" tag="h3">SOLD FOR £{this.props.price.toLocaleString()}</CardHeader>
                 <CardBody className="RecentlySoldCar">
                     <CardTitle tag="h4">{this.props.make} {this.props.model}</CardTitle>
                     <CardText tag="h4">{this.props.type} | {this.props.gearbox}</CardText>

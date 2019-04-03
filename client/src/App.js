@@ -14,6 +14,10 @@ import Login from './components/auth/Login';
 
 import './App.css';
 
+// I only want to import local .env files when not in production
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config();
+}
 
 // okta configuration information
 // this is linked to my application on Okta.com

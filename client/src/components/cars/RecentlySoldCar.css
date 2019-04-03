@@ -4,6 +4,7 @@
 
 .RecentlySoldCarCard {
     width: 85%;
-    margin: auto;
+    align-content: center;
+    margin-top: 20px;
     background-color: rgba(256, 256, 256, .1);
 }

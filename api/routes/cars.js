@@ -6,6 +6,11 @@ const sanitise = require('mongo-sanitize');
 const carSchema = require('../mongooseSchemas/carSchema');
 const saleSchema = require('../mongooseSchemas/saleSchema');
 
+// I only want to import local .env files when not in production
+if(process.env.NODE_ENV !== 'production'){
+    require('dotenv').config();
+}
+
 
 //const database = "mongodb://localhost:27017/bs-dw";
 const database = `mongodb+srv://bs-dw-access:${process.env.REACT_APP_MONGO_PASSWORD}@businesssystemscluster-3l9va.mongodb.net/test?authSource=admin`;
