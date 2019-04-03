@@ -1,5 +1,7 @@
 This website cannot be ran locally without installing lots of packages as it is written in Node and React.
-It is hosted at https://aczg110.co.uk and you can go there to view it easily
+I am hosting my site live - you can view it at https://www.aczg110.co.uk/
+The server was a bit wobbly at the time of submission but I'm hoping it holds up. If this domain doesn't connect, please email me
+so I can provide an alternative. reece.mercer@city.ac.uk
 
 Evidence of HTML - for a pure .html file, see ./client/public/index.html
                  - the rest of the .js files are React, and contain a mix of HTML and JS (JSX), see ./client/src/pages/
