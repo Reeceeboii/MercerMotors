@@ -3,10 +3,12 @@ const middleware = require('./middlewareRouter');
 const express = require("express");
 const path = require("path");
 const app = express();
-const port = process.env.PORT || 5000;
+const port = process.env.REACT_APP_PORT;
 
 //Static file declaration
 app.use(express.static(path.join(__dirname, 'client/build')));
+
+// binding my middleware to handle api routes
 app.use(middleware);
 
 
@@ -17,18 +19,5 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
 
-/*
-//production mode
-if(process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'client/build')));
-  //
-  app.get('*', (req, res) => {
-    res.sendfile(path.join(__dirname = 'client/build/index.html'));
-  })
-}
-//build mode
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/client/public/index.html'));
-})
-*/
+
 app.listen(port, () => console.log("Server started"));
