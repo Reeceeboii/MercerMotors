@@ -36,7 +36,7 @@ export default withAuth(class Home extends Component {
         this.checkAuthentication();
         fetch('/cars/recently_sold')
             .then(res => res.json())
-            .then(recent_sales => this.setState({recent_sales}, () => console.log(recent_sales)));
+            .then(recent_sales => this.setState({recent_sales}));
 
     };
 

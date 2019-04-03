@@ -14,6 +14,7 @@ import Login from './components/auth/Login';
 
 import './App.css';
 
+require('dotenv').config()
 
 // okta configuration information
 // this is linked to my application on Okta.com

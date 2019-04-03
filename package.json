@@ -8,14 +8,13 @@
   "description": "My submission for the Business Systems coursework. A website for buying and selling second hand cars.",
   "main": "server.js",
   "scripts": {
-      "client-install": "cd client && yarn",
-      "start": "node server.js",
-      "server": "nodemon server.js",
-      "client": "npm start --prefix client",
-      "dev": "concurrently \"npm run server\" \"npm run client\"",
-      "heroku-postbuild": "cd client && yarn && yarn run build"
-
-    },
+    "client-install": "cd client && yarn",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "cd client && yarn && yarn run build"
+  },
   "author": "Reece Mercer",
   "license": "MIT",
   "devDependencies": {
