@@ -18,10 +18,10 @@ import './App.css';
 // okta configuration information
 // this is linked to my application on Okta.com
 const OktaConfig = {
-    domain: process.env.oktaDomain,
-    issuer: process.env.oktaIssuer,
-    redirect_uri: window.location.origin + process.env.oktaRedirectURI,
-    client_id: process.env.oktaClientID
+    domain: process.env.REACT_APP_OKTA_DOMAIN,
+    issuer: process.env.REACT_APP_OKTA_ISSUER,
+    redirect_uri: window.location.origin + process.env.REACT_APP_OKTA_REDIRECT_URI,
+    client_id: process.env.REACT_APP_OKTA_CLIENT_ID
 };
 
 // pushes users to the login page if their authentication is required
