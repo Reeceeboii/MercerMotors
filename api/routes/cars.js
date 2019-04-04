@@ -133,7 +133,7 @@ router.post('/create_new', (req, res, next) => {
     newCar
         .save()
         .then( () => {
-            res.redirect(201, 'http://localhost:3000/user')
+            res.redirect(201, '/user')
         })
         .catch(err => {
             res.status(500).json({

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Card, CardHeader, CardFooter, Col, Row, Jumbotron, Form, FormGroup, Label, Input,
 InputGroup, InputGroupAddon, Button, CardBody, Alert} from "reactstrap";
 
@@ -9,6 +10,7 @@ class List extends Component {
         super(props);
         this.state = {
             formValidationErrors: [],
+            redirect: false,
 
             owner: "",
             make: "",
@@ -37,6 +39,9 @@ class List extends Component {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
+        })
+        .then(() => {
+            this.setRedirect();
         })
     };
 
@@ -101,6 +106,17 @@ class List extends Component {
         }
     }
 
+    setRedirect = () => {
+        this.setState({
+        redirect: true
+        })
+    }
+    renderRedirect = () => {
+        if (this.state.redirect) {
+            return <Redirect to='/user' />
+        }
+    }
+
     render() {
         // types of car that can be mapped into the dropdown for the user to select
         const types = [
@@ -113,6 +129,7 @@ class List extends Component {
 
         return (
           <div className='App'>
+              {this.renderRedirect()}
               <Jumbotron fluid className="MainJumboTop">
                   <h2 className="Splash">List your car with Mercer Motors!</h2>
 
