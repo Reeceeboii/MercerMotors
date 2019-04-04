@@ -77,6 +77,7 @@ class App extends Component {
 
                         <Route path='/login' render={() =>(
                             <div className='App'>
+                                <Navbar />
                                 <Login baseUrl={OktaConfig.domain}/>
                             </div>
                         )}/>

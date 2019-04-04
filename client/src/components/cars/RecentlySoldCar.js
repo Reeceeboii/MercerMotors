@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import './RecentlySoldCar.css';
-import { Card, CardHeader, CardBody, CardTitle, CardText, Button, CardFooter } from 'reactstrap';
+import { Card, CardHeader, CardBody, CardTitle, CardText, CardFooter } from 'reactstrap';
 
 
 class RecentlySoldCar extends Component {

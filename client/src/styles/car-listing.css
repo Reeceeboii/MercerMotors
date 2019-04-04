@@ -1,9 +1,11 @@
 .CarListingForm {
+    border-radius: 25px;
     margin: auto;
     width: 75%;
 }
 
 .EntryCard {
+    border-radius: 25px;
     background: rgba(255, 255, 255, .25);
 }
 
@@ -11,11 +13,6 @@
     font-size: 2vw;
 }
 
-.FileUpload {
-    padding-top: 20px;
-    margin: auto;
-    text-align: center;
-}
 
 @media only screen and (max-width: 600px) {
     .CarListingForm {

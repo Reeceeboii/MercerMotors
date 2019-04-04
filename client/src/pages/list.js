@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { Card, CardHeader, CardFooter, Col, Row, Jumbotron, Form, FormGroup, Label, Input,
 InputGroup, InputGroupAddon, Button, CardBody, Alert} from "reactstrap";
 
@@ -34,7 +34,6 @@ class List extends Component {
         fetch('/cars/create_new', {
             method: 'POST',
             headers: {
-                'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
@@ -119,7 +118,7 @@ class List extends Component {
 
                   <div className="CarListingForm">
                       <Card className="EntryCard">
-                          <CardHeader tag="h4">Please fill out the following details</CardHeader>
+                          <CardHeader style={{borderRadius: "25px 25px 0 0"}} tag="h4">Please fill out the following details</CardHeader>
                           <CardBody>
                               <Form onSubmit={this.handleSubmit} enctype="multipart/form-data">
                                   <Row>
@@ -206,7 +205,7 @@ class List extends Component {
                                   ))
                               }
                           </CardBody>
-                          <CardFooter className="h4">
+                          <CardFooter style={{borderRadius: "0 0 25px 25px"}} className="h4">
                               <Button color="success" size="lg"
                                       onClick={this.handleSubmit}>List your car!</Button>
                           </CardFooter>

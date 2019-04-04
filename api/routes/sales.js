@@ -9,10 +9,8 @@ if(process.env.NODE_ENV !== 'production'){
     require('dotenv').config();
 }
 
-
-//const database = "mongodb://localhost:27017/bs-dw";
 const database = `mongodb+srv://bs-dw-access:${process.env.REACT_APP_MONGO_PASSWORD}@businesssystemscluster-3l9va.mongodb.net/test?authSource=admin`;
-mongoose.connect(database).then( () => console.log("connected"));
+mongoose.connect(database, {useNewUrlParser: true}).then( () => console.log("sales API connected"));
 
 // gets all sales for a particular username
 router.get('/:username', (req, res, next) => {

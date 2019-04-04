@@ -83,9 +83,9 @@ export default withAuth(class Home extends Component {
                             these, just start searching!</p>
                             <Row>
                             {this.state.recent_sales.map(car =>
-                                <Col xs="12" sm="12" xl="4">
-                                <RecentlySoldCar make={car.make} model={car.model}
-                                                 owner={car.owner} price={car.price} type={car.type} gearbox={car.gearbox}/>
+                                <Col key={car._id} xs="12" sm="12" xl="4">
+                                    <RecentlySoldCar make={car.make} model={car.model}
+                                                     owner={car.owner} price={car.price} type={car.type} gearbox={car.gearbox}/>
                                 </Col>
                             )}
                             </Row>

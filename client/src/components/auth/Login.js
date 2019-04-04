@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {Link, Redirect} from 'react-router-dom';
-import { Button } from 'reactstrap';
+import { Button, Jumbotron } from 'reactstrap';
 import SignInWidget from './SignInWidget';
 import { withAuth } from '@okta/okta-react';
 
@@ -30,10 +30,6 @@ export default withAuth(class Login extends Component {
             return this.props.auth.redirect({
                 sessionToken: res.session.token
             });
-        } else {
-            // The user can be in another authentication state that requires further action.
-            // For more information about these states, see:
-            //   https://github.com/okta/okta-signin-widget#rendereloptions-success-error
         }
     }
 
@@ -42,10 +38,12 @@ export default withAuth(class Login extends Component {
         return this.state.authenticated ?
             <Redirect to={{ pathname: '/' }}/> :
             <div className='App'>
-                <SignInWidget
-                    baseUrl={this.props.baseUrl}
-                    onSuccess={this.onSuccess}/>
-                <Button className="ReturnButton" color="info" tag={Link} to={"/"}>Return home</Button>{' '}
+                <Jumbotron fluid className="MainJumboTop">
+                    <SignInWidget
+                        baseUrl={this.props.baseUrl}
+                        onSuccess={this.onSuccess}/>
+                    <Button className="ReturnButton" color="info" tag={Link} to={"/"}>Return home</Button>{' '}
+                </Jumbotron>
             </div>
     }
 });

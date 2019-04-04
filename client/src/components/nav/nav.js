@@ -6,6 +6,7 @@ import {
     Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, Button,
     NavLink, UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 
+
 export default withAuth(class NavBar extends Component {
     constructor(props) {
         super(props);
