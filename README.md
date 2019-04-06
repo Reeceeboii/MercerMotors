@@ -3,6 +3,8 @@
 ## This was a coursework project for the 'Business Systems' module
 Mercer Motors is an e-commerce based dynamic website for buying and selling second hand cars. The basic flow is that users can register, and list cars, they can also buy cars that have been listed by other users.
 
+## I wrote a blog post on my website about this coursework task - [read it here](https://reecemercer.dev/business-systems-coursework)
+
 
 ## Languages and frameworks
 * NodeJS backend (with Express.js server framework)
