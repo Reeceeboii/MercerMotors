@@ -3,6 +3,8 @@
 
 # Please note that since this has been marked by my lecturer, I have swapped out the higher spec server this was hosted on for a lower spec (cheaper) one. This site is still accessible, but the server will go to sleep if no visitors are detected after a certain period of time. If you go to the site and it doesn't load as you'd expect it to, please give 10-15 seconds for the server to spin up, and then you can access it as you normally would.
 
+# For this same reason, the SSL certificate has been invalidated. You can still register and try it out though, nothing of any sensitive nature is uploaded, and the passwords/emails are still secure as they're handled by Okta, not my site.
+
 
 
 
