@@ -27,7 +27,7 @@ The frontend and backend of the web app are hosted on a Heroku Dyno, and the Mon
 OAuth 2.0 implicit flow (Okta) for user authentication. 
 
 # Live domain
-This site can be viewed live at https://www.aczg110.co.uk
+This site can be viewed live at http://www.aczg110.co.uk
 
 ### A note...
 Fellow students know of this site, and the repo is public - I do check the site every now and then, but cannot be held responsible for content uploaded by others.
